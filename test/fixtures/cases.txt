@@ -1,0 +1,572 @@
+=== step-narration deny: Step n | src/A.kt | deny:step-narration
+// Step 1: validate the input
+val a = 1
+=== step-narration deny: numbered label | src/A.kt | deny:step-narration
+// 1. Validate input
+val a = 1
+=== step-narration deny: First we | scripts/a.py | deny:step-narration
+# First we parse the file
+x = 1
+=== step-narration deny: Then we | src/A.kt | deny:step-narration
+// Then we call the API
+val a = 1
+=== step-narration deny: Finally we | src/A.kt | deny:step-narration
+// Finally we save the row
+val a = 1
+=== step-narration deny: trailing comment | src/A.kt | deny:step-narration
+val a = 1 // Step 1: do it
+=== step-narration deny: sql | db/a.sql | deny:step-narration
+-- Step 1: create the table
+create table t (id int);
+=== step-narration deny: go | pkg/a.go | deny:step-narration
+// 1. Validate
+func a() {}
+=== step-narration deny: Dockerfile | Dockerfile | deny:step-narration
+# First we install the packages
+FROM alpine
+=== step-narration deny: docstring | scripts/a.py | deny:step-narration
+def f():
+    """Step 1: do the thing."""
+    return 1
+=== step-narration allow | src/A.kt | allow
+// Validates the input before the save call.
+// Step-by-step migration is not supported.
+// The first value wins.
+val a = 1
+=== step-narration allow: string literal | src/A.kt | allow
+val s = "a // Step 1"
+=== step-narration allow: url | src/A.kt | allow
+val u = "http://example.com/x"
+=== step-narration allow: python string | scripts/a.py | allow
+x = "a # First we"
+=== banner deny: equals | src/A.kt | deny:banner
+// ======== Section ========
+val a = 1
+=== banner deny: dashes in yaml | ci/a.yml | deny:banner
+# ----- jobs -----
+name: x
+=== banner deny: region | src/A.kt | deny:banner
+// region Helpers
+val a = 1
+=== banner deny: endregion | src/A.kt | deny:banner
+// endregion
+val a = 1
+=== banner deny: block asterisks | src/A.kt | deny:banner
+/*********
+ * x
+ */
+val a = 1
+=== banner allow | src/A.kt | allow
+// region of the screen where the card sits
+// a-b-c ---
+// ---
+val a = 1
+=== section-label deny: State | src/A.kt | deny:section-label
+// State
+val a = 1
+=== section-label deny: Handlers hash | scripts/a.py | deny:section-label
+# Handlers
+x = 1
+=== section-label deny: Public colon | src/A.kt | deny:section-label
+// Public:
+val a = 1
+=== section-label allow | src/A.kt | allow
+// State machine for the sync loop.
+// Public key pinning.
+val a = 1
+=== signature-echo deny | src/A.kt | deny:signature-echo
+/**
+ * Loads it.
+ * @param id the id of the user
+ * @return the user
+ */
+fun load(id: String): User? = null
+=== signature-echo deny: return only | src/A.kt | deny:signature-echo
+/**
+ * @return the result
+ */
+fun load(): Int = 1
+=== signature-echo allow | src/A.kt | allow
+/**
+ * Loads a user.
+ * @param id Stable external id; never the row id.
+ * @return null when the user is deleted
+ */
+fun load(id: String): User? = null
+=== todo-anchor deny: bare | src/A.kt | deny:todo-anchor
+// TODO fix later
+val a = 1
+=== todo-anchor deny: owner not anchor | src/A.kt | deny:todo-anchor
+// TODO(salah): fix
+val a = 1
+=== todo-anchor deny: FIXME | src/A.kt | deny:todo-anchor
+// FIXME
+val a = 1
+=== todo-anchor deny: HACK hash | scripts/a.py | deny:todo-anchor
+# HACK works around x
+x = 1
+=== todo-anchor deny: empty what | src/A.kt | deny:todo-anchor
+// TODO(docs/backlog/x.md#y):
+val a = 1
+=== todo-anchor deny: wrong prefix with anchor key | src/A.kt | deny:todo-anchor | anchor
+// TODO(notes/x.md#y): do it
+val a = 1
+=== todo-anchor deny: no md file with anchor key | src/A.kt | deny:todo-anchor | anchor
+// TODO(docs/backlog/#y): do it
+val a = 1
+=== todo-anchor allow: any path without key | src/A.kt | allow
+// TODO(docs/backlog/x.md#y): handle quota
+val a = 1
+=== todo-anchor allow: anchor key | src/A.kt | allow | anchor
+// TODO(docs/backlog/x.md#y): handle quota
+val a = 1
+=== todo-anchor allow: not the keyword | src/A.kt | allow
+// Todo-list items render in a column.
+// TODOS are tracked elsewhere.
+val a = 1
+=== run-cap deny: four slashes | src/A.kt | deny:run-cap
+// one
+// two
+// three
+// four
+val a = 1
+=== run-cap deny: four hashes | scripts/a.py | deny:run-cap
+# one
+# two
+# three
+# four
+x = 1
+=== run-cap deny: six block lines | src/A.kt | deny:run-cap
+/*
+ * one
+ * two
+ * three
+ * four
+ * five
+ * six
+ */
+val a = 1
+=== run-cap deny: six docstring lines | scripts/a.py | deny:run-cap
+def f():
+    """
+    one
+    two
+    three
+    four
+    five
+    six
+    """
+    return 1
+=== run-cap deny: four dash lines | db/a.sql | deny:run-cap
+-- one
+-- two
+-- three
+-- four
+select 1;
+=== run-cap deny: blank comment lines do not split a run | src/A.kt | deny:run-cap
+// one
+// two
+// three
+//
+// four
+val a = 1
+=== run-cap deny: shebang then four | scripts/a.sh | deny:run-cap
+#!/bin/bash
+# one
+# two
+# three
+# four
+echo hi
+=== run-cap deny: pep723 then four | scripts/a.py | deny:run-cap
+# /// script
+# dependencies = ["httpx"]
+# ///
+# one
+# two
+# three
+# four
+import httpx
+=== run-cap allow: three slashes | src/A.kt | allow
+// one
+// two
+// three
+val a = 1
+=== run-cap allow: five block lines | src/A.kt | allow
+/*
+ * one
+ * two
+ * three
+ * four
+ * five
+ */
+val a = 1
+=== run-cap allow: five docstring lines | scripts/a.py | allow
+def f():
+    """
+    one
+    two
+    three
+    four
+    five
+    """
+    return 1
+=== run-cap allow: shebang plus three | scripts/a.sh | allow
+#!/bin/bash
+# one
+# two
+# three
+echo hi
+=== run-cap allow: pep723 plus three | scripts/a.py | allow
+# /// script
+# requires-python = ">=3.12"
+# dependencies = ["httpx"]
+# ///
+# one
+# two
+# three
+import httpx
+=== run-cap allow: runs split by code | src/A.kt | allow
+// one
+// two
+// three
+val a = 1
+// four
+// five
+// six
+val b = 2
+=== run-cap allow: trailing comments are not a run | src/A.kt | allow
+val a = 1 // one
+val b = 2 // two
+val c = 3 // three
+val d = 4 // four
+val e = 5 // five
+=== run-cap allow: directives are not prose | scripts/a.py | allow
+x = 1  # noqa: E501
+# type: ignore
+# pragma: no cover
+# fmt: off
+# noqa
+y = 2
+=== run-cap allow: triple quoted string is not a docstring | scripts/a.py | allow
+rows = db.query(
+    """
+    one
+    two
+    three
+    four
+    five
+    six
+    seven
+    """
+)
+=== width deny: ascii over 120 | src/A.kt | deny:width
+// alpha beta gamma delta epsilon zeta eta theta iota kappa lambda mu nu xi omicron pi rho sigma tau upsilon phi chi psi omega
+val a = 1
+=== width allow: long url token | src/A.kt | allow
+// https://example.com/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+val a = 1
+=== width allow: long code line | src/A.kt | allow
+val aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = listOf("aaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "cccccccccccccccccccccccccccccccc", "dddd")
+=== changelog deny: dated note | src/A.kt | deny:changelog
+// Removed 2026-09-10 the old client
+val a = 1
+=== changelog deny: used to | src/A.kt | deny:changelog
+// this used to read the cache
+val a = 1
+=== changelog deny: previously | src/A.kt | deny:changelog
+// It previously returned null.
+val a = 1
+=== changelog deny: we removed | src/A.kt | deny:changelog
+// we removed the cache layer
+val a = 1
+=== changelog deny: I just added | scripts/a.py | deny:changelog
+# I just added retries here
+x = 1
+=== changelog deny: until year | src/A.kt | deny:changelog
+// stays until 2027-01 at least
+val a = 1
+=== changelog deny: markdown | docs/NOTES.md | deny:changelog
+We removed the old flow last week.
+=== changelog deny: markdown used to | docs/NOTES.md | deny:changelog
+The file used to hold the schema.
+=== changelog allow: removed items | src/A.kt | allow
+// Removed items are kept for 30 days.
+// The migration was added by Flyway.
+val a = 1
+=== changelog allow: markdown fenced example | docs/NOTES.md | allow
+Example of what to avoid:
+
+```
+// we removed the old flow
+```
+=== changelog deny: markdown quote dated against the edit | docs/NOTES.md | deny:changelog
+> Kept until 2027-01 for compatibility.
+=== changelog allow: markdown fact stamp | docs/NOTES.md | allow
+Prices as of 2026-09-27, after the June adjustment. Recheck before ordering.
+=== changelog allow: markdown prose | docs/NOTES.md | allow
+Items removed by the user stay for 30 days.
+=== markdown skips the other checks | docs/NOTES.md | allow
+// Step 1: this is prose in a doc
+1. Validate input
+# ===== heading =====
+TODO write more
+=== roadmap deny: for now | src/A.kt | deny:roadmap
+// for now we ignore errors
+val a = 1
+=== roadmap deny: temporary | src/A.kt | deny:roadmap
+// temporary workaround for the cache
+val a = 1
+=== roadmap deny: until ships | src/A.kt | deny:roadmap
+// until the API ships we poll
+val a = 1
+=== roadmap deny: not yet implemented | scripts/a.py | deny:roadmap
+# not yet implemented
+x = 1
+=== roadmap deny: later phase | src/A.kt | deny:roadmap
+// handled in a later phase
+val a = 1
+=== roadmap deny: time being | src/A.kt | deny:roadmap
+// for the time being this is a stub
+val a = 1
+=== roadmap allow | src/A.kt | allow
+// Wait until it finishes; the lock is held meanwhile.
+// Uses the temp directory for scratch files.
+val a = 1
+=== commented-out-code deny: val | src/A.kt | deny:commented-out-code
+// val x = 1
+val a = 1
+=== commented-out-code deny: fun | src/A.kt | deny:commented-out-code
+// fun foo(a: Int) {
+val a = 1
+=== commented-out-code deny: import | src/A.kt | deny:commented-out-code
+// import app.ribat.Foo
+val a = 1
+=== commented-out-code deny: bare call | src/A.kt | deny:commented-out-code
+// doThing(a, b)
+val a = 1
+=== commented-out-code deny: closing brace | src/A.kt | deny:commented-out-code
+// }
+val a = 1
+=== commented-out-code deny: semicolon | src/A.kt | deny:commented-out-code
+// return x;
+val a = 1
+=== commented-out-code deny: python import | scripts/a.py | deny:commented-out-code
+# import os
+x = 1
+=== commented-out-code deny: python def | scripts/a.py | deny:commented-out-code
+# def run(x):
+x = 1
+=== commented-out-code deny: python print | scripts/a.py | deny:commented-out-code
+# print(x)
+x = 1
+=== commented-out-code deny: python return | scripts/a.py | deny:commented-out-code
+# return foo(x)
+x = 1
+=== commented-out-code allow: kotlin prose | src/A.kt | allow
+// if the user taps (twice).
+// import the data before use
+// let me explain
+val a = 1
+// class of problems
+// Runs after the sync: see Sync.kt (not here).
+val b = 2
+=== commented-out-code deny: assignment | src/A.kt | deny:commented-out-code
+// total = a + b;
+val a = 1
+=== commented-out-code deny: else branch | src/A.kt | deny:commented-out-code
+// } else {
+val a = 1
+=== commented-out-code allow: prose ending in a semicolon or brace | src/A.kt | allow
+// turn relays one Rafiq turn. A 4xx is the client's to read (text_too_long, unreadable);
+val a = 1
+// the route is /users/{id}
+val b = 2
+// wait for the lock; then retry;
+val c = 3
+=== commented-out-code allow: python prose | scripts/a.py | allow
+# return early when the list is empty
+# import order matters here
+x = 1
+=== ticket-id deny: BR | src/A.kt | deny:ticket-id | ticket
+// see BR-12 for the rule
+val a = 1
+=== ticket-id deny: D number | src/A.kt | deny:ticket-id | ticket
+// D4 decided this
+val a = 1
+=== ticket-id deny: T number | src/A.kt | deny:ticket-id | ticket
+// T12
+val a = 1
+=== ticket-id deny: batch task | src/A.kt | deny:ticket-id | ticket
+// from B3/T4 of the plan
+val a = 1
+=== ticket-id deny: trailing | src/A.kt | deny:ticket-id | ticket
+val a = 1 // BR-3
+=== ticket-id allow: real acronyms | src/A.kt | allow | ticket
+// ISO-8601 dates and FSRS-4.5 scheduling, SHA-256 digest.
+val a = 1
+=== ticket-id allow: markdown is not code | docs/NOTES.md | allow | ticket
+See BR-12 for the rule.
+=== ticket-id allow: exempt dir | docs/specs/a.kt | allow | ticket
+// see BR-12 for the rule
+val a = 1
+=== ticket-id allow: exempt dir two | corpus/x.kt | allow | ticket
+// see BR-12 for the rule
+val a = 1
+=== ticket-id allow: no config no check | src/A.kt | allow
+// see BR-12 for the rule
+val a = 1
+=== go-package-doc deny: two lines | pkg/foo.go | deny:go-package-doc
+// Package foo does things.
+// It is large.
+package foo
+=== go-package-doc allow: one line | pkg/foo.go | allow
+// Package foo does things.
+package foo
+=== go-package-doc allow: license header apart | pkg/foo.go | allow
+// Copyright 2026 The Authors. All rights reserved.
+// Use of this source code is governed by a license.
+
+// Package foo does things.
+package foo
+=== go-package-doc allow: build constraints | pkg/foo.go | allow
+//go:build linux
+//go:generate stringer -type=Kind
+//nolint:unused
+package foo
+=== banned-name deny: kotlin class Manager | src/A.kt | deny:banned-name
+class UserManager(val id: Int)
+=== banned-name deny: kotlin object Helper | src/A.kt | deny:banned-name
+object IdHelper {
+}
+=== banned-name deny: kotlin interface Util | src/A.kt | deny:banned-name
+interface Util
+=== banned-name deny: kotlin fun handle | src/A.kt | deny:banned-name
+fun handle(x: Int) {}
+=== banned-name deny: kotlin extension execute | src/A.kt | deny:banned-name
+fun Foo.execute() {}
+=== banned-name deny: typescript class | web/a.ts | deny:banned-name
+export class CacheWrapper {}
+=== banned-name deny: typescript function | web/a.ts | deny:banned-name
+function doWork() {}
+=== banned-name deny: go struct | pkg/a.go | deny:banned-name
+type FooWrapper struct{}
+=== banned-name deny: go method | pkg/a.go | deny:banned-name
+func (s *Svc) process(x int) {}
+=== banned-name deny: python class | scripts/a.py | deny:banned-name
+class OrderManager:
+    pass
+=== banned-name deny: python def | scripts/a.py | deny:banned-name
+def execute(self):
+    return 1
+=== banned-name deny: file utils.ts | web/utils.ts | deny:banned-name
+export const a = 1
+=== banned-name deny: file Helpers.kt | src/Helpers.kt | deny:banned-name
+val a = 1
+=== banned-name deny: file common.kt | src/common.kt | deny:banned-name
+val a = 1
+=== banned-name deny: file util.go | pkg/util.go | deny:banned-name
+package util
+=== banned-name allow: call sites and near misses | src/A.kt | allow
+val m = UserManager()
+fun handleClick() {}
+class ManagerSession
+val h = IdHelper.default
+override fun handle(x: Int) {}
+=== banned-name allow: go near misses | pkg/a.go | allow
+type Manifest struct{}
+func (s *Svc) Process(x int) {}
+func processAll() {}
+=== banned-name allow: python near misses | scripts/a.py | allow
+class ManagerSession:
+    pass
+def handle_click():
+    return 1
+=== banned-name allow: file named utilities | src/Utilities.kt | allow
+val a = 1
+=== edit allow: inherited debt untouched | src/A.kt | edit:allow
+// Step 1: inherited debt
+val a = 1
+--- new ---
+// Step 1: inherited debt
+val a = 1
+val b = 2
+=== edit deny: touched debt line | src/A.kt | edit:deny:step-narration
+// Step 1: inherited debt
+val a = 1
+--- new ---
+// Step 1: inherited debt (edited)
+val a = 1
+=== edit deny: new violating line next to debt | src/A.kt | edit:deny:banner
+// Step 1: inherited debt
+val a = 1
+--- new ---
+// Step 1: inherited debt
+// ==== new banner
+val a = 1
+=== edit deny: fourth line joins a run | src/A.kt | edit:deny:run-cap
+// one
+// two
+// three
+val a = 1
+--- new ---
+// one
+// two
+// three
+// four
+val a = 1
+=== edit allow: inherited long run untouched | src/A.kt | edit:allow
+// one
+// two
+// three
+// four
+val a = 1
+--- new ---
+// one
+// two
+// three
+// four
+val a = 1
+val b = 2
+=== write-over allow: same debt kept | src/A.kt | over:allow
+// Step 1: inherited debt
+val a = 1
+--- new ---
+// Step 1: inherited debt
+val a = 1
+val b = 2
+=== write-over deny: new debt added | src/A.kt | over:deny:step-narration
+// Step 1: inherited debt
+val a = 1
+--- new ---
+// Step 1: inherited debt
+// Then we save the row
+val a = 1
+=== write-over allow: existing utils file | web/utils.ts | over:allow
+export const a = 1
+--- new ---
+export const a = 1
+export const b = 2
+=== skip allow: tmp path | /tmp/x.kt | allow
+// Step 1: scratch
+// ==== scratch
+val a = 1
+=== skip allow: memory store | $HOME/.claude/projects/p/memory/MEMORY.md | allow
+We removed the old flow last week.
+=== exempt allow: CLAUDE.md | CLAUDE.md | allow
+We removed the old flow last week.
+=== exempt allow: nested CLAUDE.md | apps/CLAUDE.md | allow
+We removed the old flow last week.
+=== exempt deny: other markdown | NOTES.md | deny:changelog
+We removed the old flow last week.
+=== exempt allow: config glob | docs/specs/a.md | allow | ticket
+We removed the old flow last week.
+=== exempt allow: config double star | corpus/deep/er/a.md | allow | ticket
+We removed the old flow last week.
+=== unknown extension allow | data/a.json | allow
+{"a": "// Step 1: not a comment"}
+=== directive allow: go and lint markers | pkg/a.go | allow
+//go:generate stringer -type=Kind
+//nolint:unused
+// +build linux
+//line foo.go:10
+func a() {}

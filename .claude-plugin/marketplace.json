@@ -1,0 +1,14 @@
+{
+  "name": "claude-kit",
+  "description": "Hooks and skills that enforce personal Claude Code rules mechanically",
+  "owner": {
+    "name": "Atabek04"
+  },
+  "plugins": [
+    {
+      "name": "kit",
+      "source": "./plugin",
+      "description": "Comment-hygiene gate and the bulk-edit gate as PreToolUse hooks"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "kit",
+  "description": "Comment-hygiene gate and bulk-edit gate as PreToolUse hooks",
+  "author": {
+    "name": "Atabek04"
+  },
+  "repository": "https://github.com/Atabek04/claude-kit",
+  "license": "UNLICENSED"
+}

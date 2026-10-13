@@ -1,0 +1,48 @@
+name: Comment hygiene
+description: Runs the claude-kit comment-hygiene gate on a pull request diff or on the whole tree.
+
+inputs:
+  mode:
+    description: "diff checks lines added since base; tree checks every tracked file."
+    default: diff
+  base:
+    description: "Base ref for diff mode. Default: the pull request base SHA, else HEAD~1."
+    default: ""
+  ceiling:
+    description: "Tree mode only: maximum number of files allowed to carry violations."
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: Check comment hygiene
+      shell: bash
+      working-directory: ${{ github.workspace }}
+      env:
+        GATE: ${{ github.action_path }}/../plugin/scripts/no-slop.sh
+        MODE: ${{ inputs.mode }}
+        BASE: ${{ inputs.base }}
+        CEILING: ${{ inputs.ceiling }}
+        PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      run: |
+        if ! command -v jq > /dev/null; then
+          echo "comment-hygiene: jq is required on the runner (ubuntu-latest has it)." >&2
+          exit 2
+        fi
+        case "$MODE" in
+          tree)
+            if [ -n "$CEILING" ]; then
+              bash "$GATE" --tree --ceiling "$CEILING"
+            else
+              bash "$GATE" --tree
+            fi
+            ;;
+          diff)
+            base="${BASE:-${PR_BASE_SHA:-HEAD~1}}"
+            bash "$GATE" --diff "$base"
+            ;;
+          *)
+            echo "comment-hygiene: mode must be diff or tree, got '$MODE'." >&2
+            exit 2
+            ;;
+        esac
