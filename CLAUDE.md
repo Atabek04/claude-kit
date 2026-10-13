@@ -164,5 +164,7 @@ run still in flight dies half-written. Before launching more than 5 workers in t
 rough token cost, and wait for the user's go.
 
 **Make the spec carry the judgment.** A Sonnet worker is as good as its instructions: name the files it may touch,
-the files it must not, the checks it runs before finishing, and the report it returns. Gaps it reports are fixed in
+the files it must not, the checks it runs before finishing, and the report it returns. `isolation: "worktree"` branches
+from the default branch, not the current one: for work on a feature branch, create each worktree yourself from its
+HEAD (`git worktree add -b <branch> <path> <sha>`) and name the path in the brief. Gaps it reports are fixed in
 the spec by the orchestrator, not by the worker.
