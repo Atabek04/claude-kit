@@ -21,6 +21,24 @@ bad() {
     printf 'FAIL %s: %s\n' "$1" "$2"
 }
 
+assert_eq() {
+    if [ "$2" = "$3" ]; then ok "$1"; else bad "$1" "wanted '$2', got '$3'"; fi
+}
+
+assert_has() {
+    case $2 in
+        *"$3"*) ok "$1" ;;
+        *) bad "$1" "output lacks '$3': $2" ;;
+    esac
+}
+
+assert_lacks() {
+    case $2 in
+        *"$3"*) bad "$1" "output contains '$3': $2" ;;
+        *) ok "$1" ;;
+    esac
+}
+
 decision() {
     case $1 in
         *'"permissionDecision": "deny"'*) echo deny ;;
@@ -373,6 +391,17 @@ run_inplace_cases() {
     inplace_case allow "grep -n bulk-edit README.md" "$PROJ"
 }
 
+# shellcheck source=test/sync-kit.sh
+. "$ROOT/test/sync-kit.sh"
+# shellcheck source=test/commit-msg.sh
+. "$ROOT/test/commit-msg.sh"
+# shellcheck source=test/kit-init.sh
+. "$ROOT/test/kit-init.sh"
+# shellcheck source=test/check-publishable.sh
+. "$ROOT/test/check-publishable.sh"
+# shellcheck source=test/install.sh
+. "$ROOT/test/install.sh"
+
 main() {
     mkdir -p "$WORK/cases" "$PROJ"
     new_repo "$PROJ"
@@ -392,6 +421,12 @@ main() {
     run_tree_cases
     run_diff_cases
     run_inplace_cases
+    run_sync_kit_cases
+    run_sync_kit_timeout_case
+    run_commit_msg_cases
+    run_kit_init_cases
+    run_check_publishable_cases
+    run_install_cases
     printf '%s passed, %s failed\n' "$PASS" "$FAIL"
     [ "$FAIL" -eq 0 ]
 }

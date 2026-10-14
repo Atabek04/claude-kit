@@ -1,28 +1,54 @@
 # claude-kit
 
-Personal Claude Code rules, enforced by hooks instead of prose.
+The single source of Claude Code rules, skills, agents, hooks and CI gates for every project and machine.
+Mechanical rules are hooks; the rest is short prose that loads only when it applies.
 
-| Path | What |
-|---|---|
-| `plugin/` | The `kit` plugin: two PreToolUse hooks (`hooks/hooks.json`) and their scripts |
-| `plugin/scripts/no-slop.sh` | Comment-hygiene gate: hook, PR-diff check and whole-tree check in one script |
-| `plugin/scripts/block-inplace-edits.sh` | Denies scripted file edits (`sed -i`, interpreters that write files, blind redirects) unless the user opened a window |
-| `plugin/false-positives.md` | Log of gate false positives and their fixes |
-| `shell/bulk-edit.zsh` | `bulk-edit N` opens the edit window for N minutes. User-run only |
-| `hygiene/action.yml` | Composite GitHub Action that runs the gate in CI |
-| `test/run.sh` | Test suite; cases in `test/fixtures/cases.txt` |
+## Layout: what loads when
+
+| Path | Loads | What |
+|---|---|---|
+| `CLAUDE.md` | every session (imported by `~/.claude/CLAUDE.md`) | principles for all projects, under 100 lines |
+| `rules/*.md` | when a file matching its `paths:` is touched (`~/.claude/rules/kit` links here) | one stack or topic each: `jvm`, `go`, `python`, `typescript`, `testing`, `docs`, `instructions` |
+| `plugin/skills/` | description always, body on invoke (`/kit:<name>`) | procedures: `spec`, `spec-write`, `spec-review`, `spec-tasks`, `teach`, `frontend-design`, `self-mastery-coach` |
+| `plugin/hooks/hooks.json` | every tool call | `no-slop.sh` (comments, naming), `block-inplace-edits.sh` (scripted edits), `sync-kit.sh` (pulls this clone at startup) |
+| `plugin/scripts/commit-msg.sh` | git commit, via a project's `.githooks/commit-msg` | Conventional Commits, no AI attribution |
+| `hygiene/action.yml` | CI, pinned by SHA | the comment gate on PR diffs and the whole tree |
+| `bin/kit-init`, `templates/project/` | once per project | scaffolds the gates and a `CLAUDE.md` skeleton |
+| `plugin/false-positives.md` | when a gate misfires | the log of gate fixes |
+
+## For agents in any project
+
+- The kit `CLAUDE.md` and matching `rules/` are already in your context; do not copy them into a project file.
+- A project's `CLAUDE.md` and `.claude/rules/` add only what is true of that project, and win on conflict.
+- Project gate settings live in `.claude/comment-rules`; spec settings in `.claude/spec/project.md`.
+- When a lesson would help every project, end your report with `Kit: <rule> -> <file>`. Change the kit only after
+  the user says yes.
+
+## Changing the kit
+
+1. `git -C ~/claude-kit pull --rebase`.
+2. Put the change where it loads only when needed (`rules/instructions.md` says where); one owner per fact.
+3. A gate change gets an allow and a deny case; run `bash test/run.sh` and `scripts/check-publishable.sh`.
+4. Commit (Conventional Commits), push, then `claude plugin update kit@claude-kit`; projects that pin the CI action
+   bump their SHA when they want the change.
+5. Everything must be safe to publish: no secrets, employer or client names, or home paths.
 
 ## Install on a new machine
 
 ```bash
-git clone git@github.com:Atabek04/claude-kit.git ~/claude-kit
-claude plugin marketplace add Atabek04/claude-kit
-claude plugin install kit@claude-kit
-echo 'source ~/claude-kit/shell/bulk-edit.zsh' >> ~/.zshrc
+gh repo clone Atabek04/claude-kit ~/claude-kit && ~/claude-kit/install.sh
 ```
 
-`~/.claude/CLAUDE.md` holds one line, `@~/claude-kit/CLAUDE.md`, plus anything only that machine needs. The clone is
-also where projects' pre-commit hooks find `no-slop.sh` (`$CLAUDE_KIT`, default `~/claude-kit`).
+`./install.sh --check` changes nothing and reports each step as ok, todo or warn (exit 1 when a step is todo). Re-running
+`./install.sh` is safe: it only does what is missing.
+
+1. Clones the kit to `~/claude-kit` (`$CLAUDE_KIT`), where projects' hooks also find `no-slop.sh` and `commit-msg.sh`.
+2. Puts `@~/claude-kit/CLAUDE.md` at the top of `~/.claude/CLAUDE.md`, keeping anything else that machine needs.
+3. Links `~/.claude/rules/kit` to `~/claude-kit/rules`.
+4. Adds the marketplace, installs `kit@claude-kit`, and turns on its auto-update in `~/.claude/settings.json`.
+5. Sources `shell/bulk-edit.zsh` from `~/.zshrc` and hints `gh auth setup-git` when the private repository is out of reach.
+
+New project: `bin/kit-init <path>` scaffolds the comment rules, git hooks, hygiene workflow and a `CLAUDE.md` skeleton.
 
 The plugin has no `version`, so every pushed commit is a new version. Update with `claude plugin update kit@claude-kit`.
 Remove any `block-inplace-edits.sh` entry from `~/.claude/settings.json`, or the hook runs twice.

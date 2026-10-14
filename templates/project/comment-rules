@@ -1,0 +1,10 @@
+# Read by the kit plugin's no-slop.sh as key=value data; never sourced. Uncomment a key to turn it on.
+
+# ERE matching ticket, spec and task IDs that must not appear in code or comments, e.g. \b(FR|US)-[0-9]+\b
+# ticket_regex=
+
+# Space-separated globs, relative to the repository root, that the gate skips; ** means *, e.g. docs/specs/* corpus/**
+# exempt=
+
+# Path prefix every TODO must cite as TODO(<prefix><file>#<item>): <what>, e.g. docs/backlog/
+# todo_anchor=

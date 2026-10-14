@@ -1,6 +1,18 @@
 {
-  "description": "Comment-hygiene gate on file writes, bulk-edit gate on shell commands",
+  "description": "Comment-hygiene gate on file writes, bulk-edit gate on shell commands, kit clone sync at session start",
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/scripts/sync-kit.sh",
+            "timeout": 20
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",

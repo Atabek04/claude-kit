@@ -1,0 +1,119 @@
+#!/bin/bash
+# Scaffolds the kit's gates into a project without overwriting anything. Usage: kit-init [repo-path]
+# CLAUDE_KIT_SHA pins the workflow to a given commit instead of the kit's origin/main.
+set -u
+
+resolve_self_dir() {
+    local path=$1 dir
+    while [ -L "$path" ]; do
+        dir=$(cd -P "$(dirname "$path")" && pwd)
+        path=$(readlink "$path")
+        case $path in /*) ;; *) path="$dir/$path" ;; esac
+    done
+    cd -P "$(dirname "$path")" && pwd
+}
+
+KIT=$(cd "$(resolve_self_dir "${BASH_SOURCE[0]}")/.." && pwd)
+TEMPLATES="$KIT/templates/project"
+GATE="$KIT/plugin/scripts/no-slop.sh"
+
+REPO_ARG="${1:-.}"
+REPO=$(git -C "$REPO_ARG" rev-parse --show-toplevel 2> /dev/null) || {
+    echo "kit-init: $REPO_ARG is not inside a git repository" >&2
+    exit 2
+}
+
+CREATED=()
+SKIPPED=()
+
+kit_sha() {
+    if [ -n "${CLAUDE_KIT_SHA:-}" ]; then
+        printf '%s' "$CLAUDE_KIT_SHA"
+        return
+    fi
+    GIT_TERMINAL_PROMPT=0 git -C "$KIT" fetch --quiet origin main > /dev/null 2>&1
+    git -C "$KIT" rev-parse origin/main 2> /dev/null
+}
+
+# install_file <template> <relative target> [mode]; an existing target is never touched.
+install_file() {
+    local source=$1 target=$2 mode=${3:-644}
+    if [ -e "$REPO/$target" ]; then
+        SKIPPED+=("$target (exists)")
+        return
+    fi
+    mkdir -p "$(dirname "$REPO/$target")"
+    cp "$source" "$REPO/$target"
+    chmod "$mode" "$REPO/$target"
+    CREATED+=("$target")
+}
+
+install_workflow() {
+    local target=.github/workflows/hygiene.yml sha
+    if [ -e "$REPO/$target" ]; then
+        SKIPPED+=("$target (exists)")
+        return
+    fi
+    sha=$(kit_sha)
+    if ! printf '%s' "$sha" | grep -qE '^[0-9a-f]{40}$'; then
+        SKIPPED+=("$target (no 40-character origin/main SHA in $KIT; fetch it or set CLAUDE_KIT_SHA)")
+        return
+    fi
+    mkdir -p "$(dirname "$REPO/$target")"
+    sed "s/__KIT_SHA__/$sha/g" "$TEMPLATES/hygiene.yml" > "$REPO/$target"
+    CREATED+=("$target")
+}
+
+install_ceiling() {
+    local target=.github/comment-debt-ceiling count
+    if [ -e "$REPO/$target" ]; then
+        SKIPPED+=("$target (exists)")
+        return
+    fi
+    count=$(cd "$REPO" && "$GATE" --tree 2> /dev/null | sed -nE 's/^files with violations: ([0-9]+) of .*/\1/p')
+    if [ -z "$count" ]; then
+        SKIPPED+=("$target (could not measure the comment debt)")
+        return
+    fi
+    mkdir -p "$REPO/.github"
+    printf '%s\n' "$count" > "$REPO/$target"
+    CREATED+=("$target (measured $count)")
+}
+
+configure_hooks_path() {
+    local current
+    current=$(git -C "$REPO" config --local --get core.hooksPath 2> /dev/null)
+    if [ "$current" = .githooks ]; then
+        SKIPPED+=("core.hooksPath (already .githooks)")
+    elif [ -n "$current" ]; then
+        SKIPPED+=("core.hooksPath (set to $current; left alone)")
+    else
+        git -C "$REPO" config --local core.hooksPath .githooks
+        CREATED+=("core.hooksPath = .githooks")
+    fi
+}
+
+install_claude_md() {
+    if [ -e "$REPO/CLAUDE.md" ] || [ -e "$REPO/.claude/CLAUDE.md" ]; then
+        SKIPPED+=("CLAUDE.md (exists)")
+        return
+    fi
+    install_file "$TEMPLATES/CLAUDE.md" CLAUDE.md
+}
+
+install_file "$TEMPLATES/comment-rules" .claude/comment-rules
+install_file "$TEMPLATES/githooks/pre-commit" .githooks/pre-commit 755
+install_file "$TEMPLATES/githooks/commit-msg" .githooks/commit-msg 755
+configure_hooks_path
+install_workflow
+install_ceiling
+install_claude_md
+
+echo "kit-init: $REPO"
+for entry in ${CREATED[@]+"${CREATED[@]}"}; do
+    echo "  created  $entry"
+done
+for entry in ${SKIPPED[@]+"${SKIPPED[@]}"}; do
+    echo "  skipped  $entry"
+done
+exit 0

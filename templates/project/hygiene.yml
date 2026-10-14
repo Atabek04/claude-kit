@@ -1,0 +1,38 @@
+name: Hygiene
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: hygiene-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  comments:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Added lines
+        if: github.event_name == 'pull_request'
+        uses: Atabek04/claude-kit/hygiene@__KIT_SHA__
+        with:
+          mode: diff
+
+      - id: ceiling
+        run: echo "files=$(cat .github/comment-debt-ceiling)" >> "$GITHUB_OUTPUT"
+
+      - name: Comment debt ceiling
+        if: ${{ !cancelled() }}
+        uses: Atabek04/claude-kit/hygiene@__KIT_SHA__
+        with:
+          mode: tree
+          ceiling: ${{ steps.ceiling.outputs.files }}

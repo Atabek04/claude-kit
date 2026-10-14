@@ -8,7 +8,7 @@
     {
       "name": "kit",
       "source": "./plugin",
-      "description": "Comment-hygiene gate and the bulk-edit gate as PreToolUse hooks"
+      "description": "Shared skills, the comment and scripted-edit gates, and a startup sync of the claude-kit clone"
     }
   ]
 }

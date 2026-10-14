@@ -1,0 +1,10 @@
+#!/bin/bash
+# Runs claude-kit's commit message gate; a missing clone only warns.
+GATE="${CLAUDE_KIT:-$HOME/claude-kit}/plugin/scripts/commit-msg.sh"
+
+if [ ! -x "$GATE" ]; then
+    echo "commit-msg: $GATE not found, message gate skipped. Clone Atabek04/claude-kit." >&2
+    exit 0
+fi
+
+exec "$GATE" "$@"

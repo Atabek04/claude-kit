@@ -1,6 +1,6 @@
 {
   "name": "kit",
-  "description": "Comment-hygiene gate and bulk-edit gate as PreToolUse hooks",
+  "description": "Shared skills, the comment and scripted-edit gates, and a startup sync of the claude-kit clone",
   "author": {
     "name": "Atabek04"
   },
