@@ -10,7 +10,7 @@ Approach this as the design lead at a design studio known for giving every clien
 
 ## Project constraints come first
 
-Before designing, look for a project design system or constraints file (a `references/` file beside this skill, or a design-system document in the repository) and read it. Its tokens, brand theme and technical limits (text direction, touch targets, device tier, accessibility level) are mandatory and override this skill's defaults, including the call for aesthetic risk.
+Before designing, read the project's constraints: `.claude/rules/frontend.md` by convention, else a design-system document in the repository. Its tokens, brand theme and technical limits (text direction, touch targets, device tier, accessibility level) are mandatory and override this skill's defaults, including the call for aesthetic risk.
 
 ## Ground your designs in the subject matter
 
