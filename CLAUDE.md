@@ -43,9 +43,9 @@ comment.
   exists"): plans go to the backlog; the only TODO is `TODO(<backlog file>#<item>): <what>`.
 - Length: one line is the target; caps and the 120-char width are enforced by `no-slop.sh` (the `kit` plugin, and
   in CI via `Atabek04/claude-kit/hygiene`). A well-named class carries 0-3 comments.
-- Naming: no `data`/`result`/`item`/`temp` as a whole name, no `*Manager`/`*Helper`/`*Util`/`*Wrapper`, no
-  `utils`/`helpers` files, no `handle()`/`process()`, no `XServiceImpl` for a single impl, no boolean parameters.
-  Same concept, same word, everywhere.
+- Naming: no `data`/`result`/`item`/`temp` as a whole name, no `*Manager`/`*Helper`/`*Util`/`*Wrapper`/
+  `*Container`/`*Processor`, no `utils`/`helpers` files, no `handle()`/`process()`, no `XServiceImpl` for a single
+  impl, no boolean parameters, no `getX()` that does I/O or mutates (`fetchX`, `loadX`). Same concept, same word.
 - One way per job: grep for the existing utility, client, error shape or UI primitive first; extend it, never fork
   it. A class or file used from one place that adds no abstraction gets inlined.
 

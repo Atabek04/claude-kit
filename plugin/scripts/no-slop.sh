@@ -94,7 +94,7 @@ function flush_runs() { flush_L(); flush_B() }
 
 function check_names(code,   c) {
     if (ext ~ /^(kt|java|ts|tsx)$/ &&
-        code ~ /(^|[^A-Za-z0-9_])(class|interface|object)[ \t]+[A-Za-z0-9_]*(Manager|Helper|Util|Utils|Wrapper)([^A-Za-z0-9_]|$)/)
+        code ~ /(^|[^A-Za-z0-9_])(class|interface|object)[ \t]+[A-Za-z0-9_]*(Manager|Helper|Util|Utils|Wrapper|Container|Processor)([^A-Za-z0-9_]|$)/)
         viol(nr, nr, "banned-name", cur)
     if (ext == "kt" && code !~ /(^|[^A-Za-z0-9_])override[ \t]/ &&
         code ~ /(^|[^A-Za-z0-9_])fun[ \t]+(<[^>]*>[ \t]*)?([A-Za-z0-9_<>?,. ]*\.)?(handle|process|doWork|execute)[ \t]*\(/)
@@ -104,13 +104,13 @@ function check_names(code,   c) {
     if (ext == "go") {
         if (code ~ /^[ \t]*func[ \t]+(\([^)]*\)[ \t]*)?(handle|process|doWork|execute)[ \t]*[(\[]/)
             viol(nr, nr, "banned-name", cur)
-        if (code ~ /^[ \t]*type[ \t]+[A-Za-z0-9_]*(Manager|Helper|Util|Utils|Wrapper)[ \t]+(struct|interface)/)
+        if (code ~ /^[ \t]*type[ \t]+[A-Za-z0-9_]*(Manager|Helper|Util|Utils|Wrapper|Container|Processor)[ \t]+(struct|interface)/)
             viol(nr, nr, "banned-name", cur)
     }
     if (ext == "py") {
         if (code ~ /^[ \t]*(async[ \t]+)?def[ \t]+(handle|process|doWork|execute)[ \t]*\(/)
             viol(nr, nr, "banned-name", cur)
-        if (code ~ /^[ \t]*class[ \t]+[A-Za-z0-9_]*(Manager|Helper|Util|Utils|Wrapper)([^A-Za-z0-9_]|$)/)
+        if (code ~ /^[ \t]*class[ \t]+[A-Za-z0-9_]*(Manager|Helper|Util|Utils|Wrapper|Container|Processor)([^A-Za-z0-9_]|$)/)
             viol(nr, nr, "banned-name", cur)
     }
 }

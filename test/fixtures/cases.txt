@@ -442,6 +442,12 @@ class UserManager(val id: Int)
 === banned-name deny: kotlin object Helper | src/A.kt | deny:banned-name
 object IdHelper {
 }
+=== banned-name deny: kotlin class Processor | src/A.kt | deny:banned-name
+class PaymentProcessor(val id: Int)
+=== banned-name deny: go type Container | src/a.go | deny:banned-name
+type ServiceContainer struct{}
+=== banned-name allow: go http handler | src/a.go | allow
+type userHandler struct{}
 === banned-name deny: kotlin interface Util | src/A.kt | deny:banned-name
 interface Util
 === banned-name deny: kotlin fun handle | src/A.kt | deny:banned-name
