@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: catches-planted-defects
+description: A spec with a vague criterion, an Out item without a reason, an endpoint without auth and a trap its file contradicts.
+tags: [spec-review]
+context:
+  scaffold_script: setup-repo.sh

@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: unlock-found-by-grep
+description: The spec deletes addBook and renames a button label without naming the tests that pin them; tasks.md must unlock both test files.
+tags: [spec-tasks]
+context:
+  scaffold_script: setup-repo.sh

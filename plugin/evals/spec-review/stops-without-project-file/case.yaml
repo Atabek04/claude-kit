@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: stops-without-project-file
+description: The repo has no .claude/spec/project.md, so the review stops and offers the template instead of reviewing.
+tags: [spec-review]
+context:
+  scaffold_script: setup-repo.sh

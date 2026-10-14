@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: skips-unchanged-sealed-spec
+description: spec.md carries a seal and nothing but the seal line changed since, so the review stops at the seal check.
+tags: [spec-review]
+context:
+  scaffold_script: setup-repo.sh

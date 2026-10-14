@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: refuses-unapproved-spec
+description: The project requires an approved marker; spec.md is sealed but not approved, so no tasks.md is written.
+tags: [spec-tasks]
+context:
+  scaffold_script: setup-repo.sh
