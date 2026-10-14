@@ -378,7 +378,7 @@ function do_dash(   tl, pos) {
     }
 }
 
-function do_markdown(   t, s) {
+function do_markdown(   t, s, q) {
     t = ltrim(line)
     if (t ~ /^(```|~~~)/) {
         if (fence == "") fence = substr(t, 1, 3)
@@ -387,7 +387,11 @@ function do_markdown(   t, s) {
     }
     if (fence != "") return
     s = trim(line)
-    if (s != "" && changelog_hit(s, tolower(s), s ~ /^[>#*]/)) viol(nr, nr, "changelog", s)
+    # Prose that bans a phrase has to quote it; a quoted or backticked span is a citation, not narration.
+    q = s
+    gsub(/`[^`]*`/, "", q)
+    gsub(/"[^"]*"/, "", q)
+    if (s != "" && changelog_hit(q, tolower(q), s ~ /^[>#*]/)) viol(nr, nr, "changelog", s)
 }
 
 BEGIN {

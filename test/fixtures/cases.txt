@@ -293,6 +293,10 @@ The file used to hold the schema.
 // Removed items are kept for 30 days.
 // The migration was added by Flyway.
 val a = 1
+=== changelog allow: markdown quoted banned phrase | docs/NOTES.md | allow
+- State the rule as it is now. No history, no "we changed", and no `this used to read X`.
+=== changelog deny: markdown narration beside a quote | docs/NOTES.md | deny:changelog
+We removed the "legacy" flow.
 === changelog allow: markdown fenced example | docs/NOTES.md | allow
 Example of what to avoid:
 
