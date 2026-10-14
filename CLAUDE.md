@@ -6,8 +6,7 @@ This file, `rules/`, and every skill, agent, hook and CI gate shared by more tha
 on every machine. `~/.claude/CLAUDE.md` only imports this file; a project's `CLAUDE.md` holds only what is true of
 that project. How to use and change the kit: `~/claude-kit/README.md`.
 - **Propose, then apply.** A lesson that would help every project ends your report as one line,
-  `Kit: <rule> -> <file>`. On the user's yes, apply it per the README's "Changing the kit"; never into a project file.
-- Everything in the kit is safe to publish: no secrets, no employer, client or product names, no home paths.
+  `Kit: <rule> -> <file>`. On the user's yes, apply it per the README's "Changing the kit"; never into a project file.- Everything in the kit is safe to publish: no secrets, no employer, client or product names, no home paths.
 
 ## Instructions are context
 

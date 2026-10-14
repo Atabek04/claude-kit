@@ -29,8 +29,8 @@ Mechanical rules are hooks; the rest is short prose that loads only when it appl
 1. `git -C ~/claude-kit pull --rebase`.
 2. Put the change where it loads only when needed (`rules/instructions.md` says where); one owner per fact.
 3. A gate change gets an allow and a deny case; run `bash test/run.sh` and `scripts/check-publishable.sh`.
-4. Commit (Conventional Commits), push, then `claude plugin update kit@claude-kit`; projects that pin the CI action
-   bump their SHA when they want the change.
+4. Commit (Conventional Commits), push, then `claude plugin marketplace update claude-kit && claude plugin update
+   kit@claude-kit` (new hooks load next session); projects that pin the CI action bump their SHA to take the change.
 5. Everything must be safe to publish: no secrets, employer or client names, or home paths.
 
 ## Install on a new machine
@@ -50,7 +50,7 @@ gh repo clone Atabek04/claude-kit ~/claude-kit && ~/claude-kit/install.sh
 
 New project: `bin/kit-init <path>` scaffolds the comment rules, git hooks, hygiene workflow and a `CLAUDE.md` skeleton.
 
-The plugin has no `version`, so every pushed commit is a new version. Update with `claude plugin update kit@claude-kit`.
+The plugin has no `version`, so every pushed commit is a new version; auto-update fetches it at the next launch.
 Remove any `block-inplace-edits.sh` entry from `~/.claude/settings.json`, or the hook runs twice.
 Requirements: bash 3.2 or newer, `jq`, `git`, `awk` (BSD, GNU or mawk).
 
