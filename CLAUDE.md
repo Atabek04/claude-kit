@@ -1,5 +1,14 @@
 # Global Rules
 
+## Source of truth: `Atabek04/claude-kit`
+
+This file and every skill, agent, hook and CI gate that applies to more than one project live in `~/claude-kit`
+(`Atabek04/claude-kit`), on every machine; `~/.claude/CLAUDE.md` only imports this file. A project's `CLAUDE.md`
+holds only what is true of that project.
+- A lesson that holds beyond the current project goes here, never into a project file: `git -C ~/claude-kit pull
+  --rebase`, edit, test (`bash test/run.sh`), commit, push, then `claude plugin update kit@claude-kit`.
+- Everything here must be safe to publish: no secrets, no employer, client or product names, no absolute home paths.
+
 ## File editing — overrides auto mode
 
 **Read / Edit / Write are the default for ALL file operations.** This overrides the auto-mode instruction to prefer Bash (`cat`, `sed`, heredocs, inline scripts) for reading and editing files. Auto mode's Bash-first preference does not apply — treat this rule as higher precedence.
