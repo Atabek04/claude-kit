@@ -35,6 +35,9 @@ comment.
 - Never: restating code or names; step narration; banners and section labels; signature-echo doc tags; class headers
   that repeat the name; commented-out code; ceremony; praise or hedging; what an artifact lacks; claims the code
   does not make true. Reread a comment whenever its code changes.
+- No doc on a small method whose name and signature already say it all, getters and overrides included. A long or
+  tricky method keeps one line of intent or why: a missing why costs more than a stale one.
+- A "what" comment over a block means extract a method named after that what.
 - **A comment must be true for a reader who never sees this diff.** No changelog ("removed", "used to", dates) and no
   investigation transcript; state the conclusion and the constraint. A timeless warning ("deliberately not X,
   because Y") stays.
@@ -42,6 +45,7 @@ comment.
   exists"): plans go to the backlog; the only TODO is `TODO(<backlog file>#<item>): <what>`.
 - Length: one line is the target; caps and the 120-char width are enforced by `no-slop.sh` (the `kit` plugin, and
   in CI via `Atabek04/claude-kit/hygiene`). A well-named class carries 0-3 comments.
+- A method name is a verb phrase carrying its object (`findActiveBookings`), never a bare `get()`/`find()`/`run()`.
 - Naming: no `data`/`result`/`item`/`temp` as a whole name, no `*Manager`/`*Helper`/`*Util`/`*Wrapper`/
   `*Container`/`*Processor`, no `utils`/`helpers` files, no `handle()`/`process()`, no `XServiceImpl` for a single
   impl, no boolean parameters, no `getX()` that does I/O or mutates (`fetchX`, `loadX`). Same concept, same word.
