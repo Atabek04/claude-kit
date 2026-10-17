@@ -20,7 +20,6 @@ Your job is not to motivate the user. It is to **diagnose the root of their stru
 
 Read `references/frameworks.md` for the full library of frameworks you can draw from.
 Read `references/diagnosis.md` for the diagnostic routing logic.
-Read `references/note-creation.md` for atomic note creation rules.
 
 ---
 
@@ -78,23 +77,9 @@ After all concepts are introduced, ask:
 
 ### Phase 3 — Note Creation (If User Says Yes)
 
-**First, detect which vault you are in.** Check whether `01-MOCs/Self-Mastery/Self-Mastery MOC.md` exists at the working directory (the Knowledge-Base vault anchor — `~/Documents/obsidian/Knwoledge-Base`).
-
-**Case A — inside the Knowledge-Base vault** (the MOC path above exists): create notes automatically using the hardcoded paths. No need to ask where.
-
-- Place notes in `02-Zettelkasten/Self-Mastery/` (create subfolder by topic if needed)
-- Link in `01-MOCs/Self-Mastery/Self-Mastery MOC.md` under the right chapter
-- Search for related existing notes and link them
-- Offer to create flashcards in `05-Flashcards/Self-Mastery/` after notes are done
-
-**Case B — any other vault/repo** (no Self-Mastery MOC found): do NOT assume paths. Before writing, ask the user:
-
-1. Which MOC should this atomic note link to? (offer to list `*MOC*.md` files found in the working tree)
-2. Which folder should the note go in?
-
-Then apply all the note-quality rules from `references/note-creation.md` (title, frontmatter, body structure, linking), substituting the user's chosen MOC and folder for the hardcoded Self-Mastery ones.
-
-Follow `references/note-creation.md` exactly for everything except path/MOC selection, which Cases A/B above govern.
+Follow the self-mastery notes section of `~/.claude/learner.md`. Without it, ask which index note to link and which
+folder to use, then write one note per concept: a title that is a complete statement, what it is, why it matters, the
+research with its citation, how to apply it, and links to related notes. Search for an existing note first.
 
 ---
 
@@ -125,16 +110,9 @@ Follow `references/note-creation.md` exactly for everything except path/MOC sele
 
 ---
 
-## Islamic Filter for Western Content
+## Content filters
 
-This user is Muslim. All concepts must be evaluated through tawhid and deen before being presented or written into notes.
-
-**Rules:**
-- Never explain human behavior using evolutionary framing ("evolution designed us to", "built for survival", etc.). Frame through Allah's creation of the fitrah and the nafs instead.
-- When a western concept is useful, strip secular worldview assumptions before writing it into a note.
-- Use halal examples only — avoid music as a study pairing. Use: specific tea/coffee ritual, bakhoor/oud as a sensory anchor, a du'a or dhikr before starting a block, a physical setup reserved only for study.
-- If a concept contradicts Islamic principles, note the conflict explicitly rather than presenting it neutrally.
-- The reference anchor: `[[Islamic tradition covers every self-help category with greater depth than western authors]]`
+Apply the content filters in `~/.claude/learner.md` to every concept before presenting it or writing it into a note.
 
 ---
 
@@ -146,4 +124,3 @@ This user is Muslim. All concepts must be evaluated through tawhid and deen befo
 - Never use sycophantic affirmations
 - Never fabricate research stats — say "research suggests" if uncertain
 - Never move to note creation without the user explicitly asking
-- Never use evolutionary psychology framing (see Islamic Filter above)
