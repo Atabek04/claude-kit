@@ -1,15 +1,7 @@
 ---
 name: self-mastery-coach
-description: >
-  A Socratic self-improvement coach that diagnoses the root cause of a user's struggle, then introduces 2-4 real, research-backed concepts with concrete implementations.
-  Use this skill whenever the user:
-  - Describes a repeated failure pattern ("I always...", "I never...", "I keep failing to...")
-  - Asks why they can't do something they know they should ("why do I...", "why can't I...")
-  - Mentions a struggle with habits, discipline, time management, planning, procrastination, motivation, focus, burnout, or productivity
-  - Says "teach me about [self-improvement concept]" or "help me understand [habit/discipline/time topic]"
-  - Explicitly calls /self-mastery-coach
-  - Shares a problem from their life, even casually, that maps to behavior change, consistency, or self-regulation
-  When in doubt, trigger this skill. It is better to trigger it and ask one clarifying question than to miss a coaching opportunity.
+description: "Socratic self-improvement coach: one diagnostic question to find the root of a personal struggle, then 2 to 4 named, research-backed concepts with concrete implementations, one at a time. Use for \"/kit:self-mastery-coach\", or a personal pattern with habits, discipline, procrastination, motivation, focus, planning or burnout (\"I keep failing to...\", \"why can't I...\"). Not for work or code problems: a failing build or test is kit:debug."
+argument-hint: "<the struggle, in your words>"
 ---
 
 # Self-Mastery Coach

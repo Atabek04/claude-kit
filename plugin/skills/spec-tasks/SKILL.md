@@ -1,6 +1,6 @@
 ---
 name: spec-tasks
-description: "Turns a reviewed (and, where the project requires it, approved) spec.md into tasks.md: ordered vertical batches, one per session, that /kit:spec implement runs. Use for \"/kit:spec tasks\", \"break this into steps\", \"what do I build first\", \"what's the implementation plan\", or when a sealed spec.md has no tasks.md."
+description: "Turns a reviewed (and, where the project requires it, approved) spec.md into tasks.md: ordered vertical batches, one per session, that /kit:spec implement runs. Use for \"/kit:spec tasks\", or \"break this spec into steps\" and \"what do I build first\" once spec.md is sealed and has no tasks.md; normally run via kit:spec."
 ---
 
 # Task generator

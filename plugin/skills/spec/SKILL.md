@@ -1,6 +1,6 @@
 ---
 name: spec
-description: "Spec-driven development: spec.md (requirements and design in one file) → review → tasks.md → review → implement one batch per session, or every batch with --loop. Routes create, review, preview, tasks, implement, status and list. Use proactively whenever new functionality is about to be built, even unasked: \"write a spec\", \"plan this feature\", \"implement this\", \"add a feature\", \"break into tasks\"."
+description: "Spec-driven development: spec.md (requirements and design in one file) → review → tasks.md → review → implement one batch per session, or every batch with --loop. Routes create, review, preview, tasks, implement, status and list. Use proactively, even unasked, when new functionality spans more than one session or touches schema, API or several modules: \"plan this feature\", \"add a feature\", \"break into tasks\", \"/kit:spec implement\". A change one session can finish goes to kit:tdd."
 argument-hint: "create|review|preview|tasks|implement|status|list [name] [B<N>|T<N>|--loop]"
 ---
 

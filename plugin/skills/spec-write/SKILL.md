@@ -1,6 +1,6 @@
 ---
 name: spec-write
-description: "Writes spec.md, the single requirements-and-design document for a feature: why, scope, business rules, stories with acceptance criteria, the options weighed, only the new schema/API deltas, and the code traps found by reading the code. Use for \"/kit:spec create\", \"write a spec\", \"spec this out\", \"what's the data model for this\", or whenever new functionality is about to be planned. kit:spec-review runs on its output."
+description: "Writes spec.md, the single requirements-and-design document for a feature: why, scope, business rules, stories with acceptance criteria, the options weighed, only the new schema/API deltas, and the code traps found by reading the code. Use for \"/kit:spec create\", \"write a spec\", \"spec this out\"; normally run via kit:spec. kit:spec-review runs on its output."
 ---
 
 # Spec writer

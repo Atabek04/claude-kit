@@ -1,6 +1,6 @@
 ---
 name: spec-review
-description: "Reviews a spec's spec.md or tasks.md as a skeptical staff engineer: what should not exist, what breaks at runtime, what the implementer would have to guess, what contradicts the code. Fixes what it can in place and seals the file. Runs after kit:spec-write and kit:spec-tasks, and on \"/kit:spec review\", \"review this spec\", \"check for gaps\". One pass per file."
+description: "Reviews a spec's spec.md or tasks.md as a skeptical staff engineer: what should not exist, what breaks at runtime, what the implementer would have to guess, what contradicts the code. Fixes what it can in place and seals the file. Runs after kit:spec-write and kit:spec-tasks, and on \"/kit:spec review\", \"review this spec\", \"check the spec for gaps\". One pass per file. Not for code: that is kit:review."
 ---
 
 # Staff engineer review
