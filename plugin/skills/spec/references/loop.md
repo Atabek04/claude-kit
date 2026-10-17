@@ -1,7 +1,7 @@
 # `--loop`: every remaining batch, one landing
 
 `/kit:spec implement <name> --loop` runs each remaining batch through the stages below, each agent in a fresh
-context, then lands once. project.md "Loop" supplies the gate command, the test lock, the reviewer agents and any
+context, then lands once. project.md "Loop" supplies the gate command, the test lock, any extra reviewer and any
 extra briefing lines; if it says "not used", say so and stop.
 
 ## The orchestrator's role
@@ -40,8 +40,9 @@ For each batch with an unchecked criterion, in order. `BASE` is `HEAD` when the 
 4. **Independent tests.** A second subagent with the test briefing. It never saw the implementer's session, so its
    oracle can only come from the spec. After `PASS` verify as in stage 3; after `FAIL` the failing tests are the only
    uncommitted change.
-5. **Gate and review, in parallel.** Only you run the gate (project.md "Loop"), in the background, while the reviewer
-   agents run. Each ends with `PASS`, `FAIL <n>` or `BLOCKED <reason>`.
+5. **Gate and review, in parallel.** Only you run the gate (project.md "Loop"), in the background, while one
+   subagent runs `kit:review <BASE>` with this spec, plus any extra reviewer project.md "Loop" names. A review with a
+   P0 or P1 is `FAIL <n>`, one with neither is `PASS`, one that could not run is `BLOCKED <reason>`.
 6. **Next batch** once every gate job and every verdict is `PASS`, after releasing the lock.
 
 **Outcomes.**
@@ -72,8 +73,8 @@ Under 40 lines, in this order:
 4. **Fixed constraints,** verbatim, plus project.md "Loop" additions:
 
 ```text
-- Write the tests for every criterion before reading the code you will change, and see them fail. Commit them with
-  the code that makes them pass; no commit is ever red.
+- Tests first by kit:tdd, one criterion at a time, each seen failing before its code. Commit them with the code
+  that makes them pass; no commit is ever red.
 - Solve the criterion for every valid input, not the tests' inputs: no branch, constant or lookup that exists to make
   a test pass. A second agent will test the batch with inputs you have not seen.
 - Tests that existed before BASE are locked. One that fails means the code is wrong or the spec contradicts it.

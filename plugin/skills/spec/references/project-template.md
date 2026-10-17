@@ -49,11 +49,12 @@ Project musts for "One batch" step 7: skills to load, stack rules, generated fil
 
 ## Gate
 
-The commands that make a batch green, and the review that runs after it by hand.
+The commands that make a batch green. `kit:review` runs after them; name any extra reviewer here.
 
 ## Loop
 
-For `--loop`: gate command, test lock, reviewer agents, extra briefing constraints, or "not used" and what replaces it.
+For `--loop`: gate command, test lock, reviewers beyond `kit:review`,
+extra briefing constraints, or "not used" and what replaces it.
 
 ## Commits
 

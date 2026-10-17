@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: "Test-first development in any stack: agree the seams with the user, then one red test and the least code to pass it per slice, expected values as literals from the requirement, refactor only once green. Use for \"/kit:tdd\", \"test-first\", \"TDD\", \"red-green-refactor\", \"write tests for this feature\", \"add integration tests\", or a change too small for kit:spec. Inside a kit:spec batch, kit:spec implement owns the loop."
+description: "Test-first development in any stack: agree the seams with the user, then one red test and the least code to pass it per slice, expected values as literals from the requirement, refactor only once green. Use for \"/kit:tdd\", \"test-first\", \"TDD\", \"red-green-refactor\", \"write tests for this feature\", \"add integration tests\", or a change too small for kit:spec. Inside a kit:spec batch, kit:spec implement runs this loop with the batch's criteria as the cases and skips the seam round."
 argument-hint: "<behaviour to build or change>"
 ---
 

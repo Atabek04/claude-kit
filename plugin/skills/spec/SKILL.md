@@ -44,13 +44,8 @@ The same procedure runs by hand and inside each `--loop` implementer.
 5. **The one stop: the batch contradicts the code.** A file the spec names is missing, a table or endpoint already
    behaves otherwise, a dependency is gone. Say so in one paragraph and stop. Size and risk are not stops: `tasks.md`
    is the approved plan. A batch too big for a session is a `tasks.md` sizing problem; split it there.
-6. **Tests first.** Record `BASE=$(git rev-parse HEAD)`. Write the tests from the batch's criteria and the rules they
-   cite before reading the code you will change, and see them fail for the right reason.
-    - The expected value is a literal from the criterion or rule, never from running the code.
-    - A test guarding a race, a retry or a gate is shown failing with the guard removed; one that cannot fail is not
-      a test.
-    - Time comes from the injected clock; no test reads the wall clock.
-    - Run each new test class alone once as well as in the suite: an order-dependent test passes in only one of them.
+6. **Tests first, by `kit:tdd`.** Record `BASE=$(git rev-parse HEAD)`, then run its loop with the batch's criteria
+   and cited rules as the case list and the seams they name as agreed (no confirmation round). On top of it:
     - Tests older than `BASE` are not edited except those `Unlock:` names. A failing one means the code is wrong or the
       spec contradicts it (step 5).
     - Tests commit with the code that makes them pass: no commit is ever red.
@@ -59,7 +54,8 @@ The same procedure runs by hand and inside each `--loop` implementer.
    guess. A library a task names is installed, never replaced by an inline version. Nothing beyond the tasks'
    deliverables.
 8. **Gate:** the batch's `Verify:` line, then project.md "Gate", every job green. Read the exit code and every job
-   line, never a truncated listing. Then self-review `git diff <BASE>` as a hostile reviewer would.
+   line, never a truncated listing. Then run `kit:review <BASE>` with this
+   spec and fix every P0 and P1 before recording.
 9. **Record.** Tick the batch's criteria (never one that no code and test back), append the Session Log row
    `| <date> | B<N> | <sha> | done, gates green | <decisions and blockers> | <next> |`, and add a failure-log row for
    each thing that actually broke. Commit per project.md "Commits", each commit compiling on its own.

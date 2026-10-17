@@ -34,8 +34,8 @@ Resolve the ref and check the diff is non-empty before spawning anything.
 
 - **Project:** root and nested `CLAUDE.md` on the touched paths, `.claude/rules/`, every file in `.claude/review/`
   (project-only checks; they override the stack reference), and `CONTRIBUTING.md` when present.
-- **Spec:** the argument; else `.claude/spec/<name>/` or the project's spec path matching the branch; else issue refs
-  in commits (`gh issue view`). None: ask once; "there is none" skips the Spec axis.
+- **Spec:** the argument; else the spec directory matching the branch, per `.claude/spec/project.md` "Paths"; else
+  issue refs in commits (`gh issue view`). None: ask once; "there is none" skips the Spec axis.
 - **Gates:** what lint, hooks and CI already enforce (`no-slop.sh` owns comments and naming). Never a finding.
 
 ## 3. Run the axes in parallel
