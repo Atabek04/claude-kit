@@ -9,7 +9,7 @@ Mechanical rules are hooks; the rest is short prose that loads only when it appl
 |---|---|---|
 | `CLAUDE.md` | every session (imported by `~/.claude/CLAUDE.md`) | principles for all projects, under 100 lines |
 | `rules/*.md` | when a file matching its `paths:` is touched (`~/.claude/rules/kit` links here) | one stack or topic each: `jvm`, `go`, `python`, `typescript`, `testing`, `docs`, `instructions` |
-| `plugin/skills/` | description always, body on invoke (`/kit:<name>`) | procedures: `spec`, `spec-write`, `spec-review`, `spec-tasks`, `teach`, `frontend-design`, `self-mastery-coach` |
+| `plugin/skills/` | description always, body on invoke (`/kit:<name>`) | procedures: `spec`, `spec-write`, `spec-review`, `spec-tasks`, `review`, `teach`, `frontend-design`, `self-mastery-coach` |
 | `plugin/hooks/hooks.json` | every tool call | `no-slop.sh` (comments, naming), `block-inplace-edits.sh` (scripted edits), `sync-kit.sh` (pulls this clone at startup) |
 | `plugin/scripts/commit-msg.sh` | git commit, via a project's `.githooks/commit-msg` | Conventional Commits, no AI attribution |
 | `hygiene/action.yml` | CI, pinned by SHA | the comment gate on PR diffs and the whole tree |
