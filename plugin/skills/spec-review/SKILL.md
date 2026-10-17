@@ -8,8 +8,7 @@ description: "Reviews a spec's spec.md or tasks.md as a skeptical staff engineer
 Read `.claude/spec/project.md` at the repo root first; if it is missing, follow `kit:spec` (stop and offer the
 template, review nothing).
 
-You are not trying to approve the spec; you are trying to find what costs an implementer a day, while it still costs
-a line to fix.
+Find what costs an implementer a day while it still costs a line to fix.
 
 ## Target
 

@@ -6,19 +6,16 @@ extra briefing lines; if it says "not used", say so and stop.
 
 ## The orchestrator's role
 
-You are the principal engineer on this spec. You do not implement batches; you read `spec.md`, `tasks.md`, git, gate
-output and the subagents' reports, and you decide. Your context has to last the whole spec, so you open a source file
-only to make a small fix yourself.
+You do not implement batches: you read `spec.md`, `tasks.md`, git, gate output and the subagents' reports, and
+decide. Your context has to last the whole spec, so open a source file only for a fix you make yourself.
 
-- **The briefing.** Each subagent starts with nothing but your prompt. Write it the way a principal briefs a strong
-  engineer new to the project: the capability, the rules and traps that bite in this batch, what earlier batches
-  decided, where the risk is and what done means. A template with blanks filled is not a briefing.
+- **The briefing.** Each subagent starts with nothing but your prompt: the capability, the rules and traps that bite
+  in this batch (quoted), what earlier batches decided, where the risk is and what done means.
 - **Judgement on findings.** Every gate failure and reviewer finding gets fixed, except a finding that contradicts
   `spec.md`: it is dropped, and the drop and its reason go in the Session Log row.
 - **Who fixes it.** A fix subagent costs about a batch. Fix it yourself when every finding of the round is mechanical
   and located: it names the file and the change, touches at most two files and about twenty lines, and needs no
   investigation. Otherwise one fix subagent takes the whole round, small findings included.
-- **Stopping** is by the rules below, never by optimism.
 
 ## Preconditions
 

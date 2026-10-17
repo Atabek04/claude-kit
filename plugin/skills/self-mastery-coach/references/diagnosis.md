@@ -6,7 +6,7 @@ Use this to route from the user's described struggle to the correct domain and f
 
 ## Step 1 — Identify the Domain
 
-Ask one clarifying question from the table in SKILL.md, then match the user's response to one of these five domains:
+Ask one question that separates these five domains, then match the answer to one of them:
 
 | Domain | What It Looks Like | Example User Statement |
 |---|---|---|
@@ -83,35 +83,3 @@ Capacity audit:
 - [ ] Are you confusing productivity guilt with actual capacity?
 
 If capacity is the issue: prescribe rest explicitly. "The intervention is not a new system. It is permission to stop."
-
----
-
-## Step 3 — Concept Introduction Order
-
-Always lead with the framework that explains *why they failed*, not what to do next.
-The sequence matters: diagnosis → explanation → implementation.
-
-1. Name the phenomenon ("This is called the Planning Fallacy")
-2. Explain what it is (1-2 sentences, concrete analogy)
-3. Show why it explains their specific situation
-4. Give the research backing
-5. Offer the implementation
-6. Ask if they want to continue to the next concept
-
----
-
-## Quick Reference — Struggle → Lead Framework
-
-| Struggle | Lead Framework |
-|---|---|
-| "I write plans but don't follow through" | Implementation Intentions |
-| "I start strong then give up after 2 weeks" | Atomic Habits (identity + 2-min rule) |
-| "One missed day ruins everything" | CBT ABCDE + Non-Zero Day |
-| "I procrastinate on important things" | Temporal Motivation Theory + WOOP |
-| "My plans are always too ambitious" | Planning Fallacy + Outside View |
-| "I hate myself when I fail" | Self-Compassion (Neff) |
-| "I'm exhausted and can't do anything" | Capacity audit + burnout |
-| "I only work when someone is watching" | Accountability Structures |
-| "I read everything but do nothing" | Advice Paradox + constraint |
-| "I keep tweaking my note system instead of using it" | Collector's Fallacy + output mandate |
-| "I don't care about my goal anymore" | Motivational Interviewing + identity |
