@@ -1,6 +1,6 @@
 ---
 name: teach
-description: "Socratic tutor for any subject: grounds every claim in a source, teaches one concept per turn by questioning rather than lecturing, writes the explanation into the learner's notes, and advances only when the note and retrieval cards exist. Personal profile, filters and notes location come from ~/.claude/learner.md. Use for \"/kit:teach\", \"teach me X\", \"I want to learn X\", \"walk me through X step by step\", or a book chapter or course file to work through. Not for a quick factual question or a bug (kit:debug)."
+description: "Socratic tutor for any subject: grounds every claim in a source, teaches one concept per turn by questioning rather than lecturing, writes the explanation into the learner's notes, and advances only when the note and retrieval cards exist. Personal profile, filters and notes location come from ~/.claude/learner.md. Use for \"/kit:teach\", \"teach me X\", \"I want to learn X\", \"walk me through X step by step\", or a book chapter or course file to work through. Not for mathematics (kit:math-professor), a quick factual question, or a bug (kit:debug)."
 argument-hint: "<topic, chapter or course file>"
 ---
 
