@@ -1,6 +1,6 @@
 #!/bin/bash
 # PreToolUse(Bash): denies scripted file edits unless the user opened a window with `bulk-edit N`.
-# Why a hook and not prose: README.md, "Why hooks instead of prose". Scratch paths stay writable.
+# Why a hook and not prose: docs/gates.md, "Why hooks instead of prose". Scratch paths stay writable.
 
 EVENT=$(cat)
 COMMAND=$(printf '%s' "$EVENT" | jq -r '.tool_input.command // empty')

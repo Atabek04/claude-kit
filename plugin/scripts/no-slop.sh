@@ -1,6 +1,6 @@
 #!/bin/bash
 # Comment-hygiene gate. No arguments: PreToolUse hook. Otherwise --diff <base> [--staged] or --tree [--ceiling N].
-# Rules, per-project config and the false-positive process are in README.md.
+# Rules, per-project config and the false-positive process are in docs/gates.md.
 set -u
 
 TMP=$(mktemp -d)
