@@ -33,6 +33,11 @@ run_sync() {
     SYNC_STATUS=$?
 }
 
+run_kit_ack() {
+    local s="$WORK/sync"
+    env -u CLAUDE_CONFIG_DIR HOME="$s/home" CLAUDE_KIT="$s/kit" "$ROOT/plugin/scripts/kit-ack.sh" > /dev/null 2>&1
+}
+
 push_from_pusher() {
     local s="$WORK/sync"
     printf '%s\n' "$1" >> "$s/pusher/CLAUDE.md"
@@ -54,8 +59,32 @@ run_sync_kit_cases() {
     context=$(printf '%s' "$SYNC_OUT" | jq -r '.hookSpecificOutput | .hookEventName + "|" + .additionalContext' 2> /dev/null)
     assert_has "sync-kit: output is SessionStart additionalContext JSON" "$context" "SessionStart|claude-kit: "
     assert_eq "sync-kit: report is one line" "1" "$(printf '%s\n' "$SYNC_OUT" | wc -l | tr -d ' ')"
+    assert_has "sync-kit: moved range is reported against the checkpoint" "$SYNC_OUT" "kit moved "
+    assert_has "sync-kit: a range without Action lines says 0 Action" "$SYNC_OUT" "1 commits, 0 Action"
     run_sync
-    assert_eq "sync-kit: second run is silent again" "0:" "$SYNC_STATUS:$SYNC_OUT"
+    assert_has "sync-kit: the checkpoint keeps reporting until acknowledged" "$SYNC_OUT" "kit moved "
+    run_kit_ack
+    run_sync
+    assert_eq "sync-kit: second run is silent after the acknowledgement" "0:" "$SYNC_STATUS:$SYNC_OUT"
+
+    sync_fixture
+    run_sync
+    push_from_pusher "rule two"
+    printf 'x\n' >> "$s/pusher/CLAUDE.md"
+    git -C "$s/pusher" commit -q -am "feat: hook change" -m "Action: re-run install.sh on each device"
+    git -C "$s/pusher" push -q origin main
+    run_sync
+    assert_has "sync-kit: Action lines are counted" "$SYNC_OUT" "2 commits, 1 Action"
+    assert_has "sync-kit: Action text is carried into the context" "$SYNC_OUT" "Action: re-run install.sh on each device"
+
+    sync_fixture
+    run_sync
+    printf 'deadbeefdeadbeefdeadbeefdeadbeefdeadbeef\n' > "$s/home/.claude/kit-seen"
+    run_sync
+    assert_has "sync-kit: a checkpoint outside the history is reported" "$SYNC_OUT" "not an ancestor"
+    run_kit_ack
+    run_sync
+    assert_eq "sync-kit: acknowledging repairs a foreign checkpoint" "0:" "$SYNC_STATUS:$SYNC_OUT"
 
     sync_fixture
     printf 'local edit\n' >> "$s/kit/CLAUDE.md"

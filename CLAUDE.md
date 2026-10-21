@@ -89,3 +89,11 @@ releases, cited with the read date. Every research brief names context7 and the 
 ## Git
 
 Conventional Commits; never AI attribution (`commit-msg.sh` enforces both). Commit or push only when asked.
+A commit the device owner must act on or customise carries an `Action: <what to do>` line in its body.
+
+## Review and device sync
+
+- Every review ask runs `kit:review <MR<N>|target> [--answer|--fix|--only]`, never a free-form read of the diff;
+  `kit:spec-review` for `spec.md`/`tasks.md`. On an MR, findings and answers are threads, chat gets the verdict.
+- When the session context says "kit moved A..B", summarise `git log` and `git diff --stat` for the range, `Action`
+  commits first. Apply nothing silently; run `plugin/scripts/kit-ack.sh` only after the user accepts.

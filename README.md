@@ -50,5 +50,15 @@ New project: `bin/kit-init <path>` scaffolds the git hooks, the hygiene workflow
 4. Commit (Conventional Commits) and push. Every push is a new plugin version, picked up at the next launch; projects
    pinning the CI action bump its SHA.
 5. Everything must be safe to publish: no secrets, no employer or client names, no home paths.
+6. A change that needs a per-device step (re-run `install.sh`, a local setting, a hook to review) gets an
+   `Action: <what to do>` line in the commit body.
+
+## Syncing devices
+
+Each device keeps `~/.claude/kit-seen`, the kit commit it last reviewed (first run records HEAD silently). At session
+start `sync-kit.sh` pulls, then compares it with HEAD and reports `kit moved A..B, N commits, M Action` plus the first
+`Action:` lines. Claude summarises the range; after you accept, `plugin/scripts/kit-ack.sh` moves the checkpoint.
+A checkpoint that is not an ancestor of HEAD (rewritten history) is reported the same way. Device-only facts stay in
+the private `~/.claude/CLAUDE.md`.
 
 How the gates work, and what to do when one misfires: [`docs/gates.md`](docs/gates.md).

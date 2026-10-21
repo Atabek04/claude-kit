@@ -59,6 +59,31 @@ check_clone() {
     fi
 }
 
+check_checkpoint() {
+    local seen_file="$CLAUDE_DIR/kit-seen" seen head count actions action_lines
+    git -C "$KIT" rev-parse --git-dir > /dev/null 2>&1 || return
+    head=$(git -C "$KIT" rev-parse HEAD 2> /dev/null)
+    if [ ! -f "$seen_file" ]; then
+        mkdir -p "$CLAUDE_DIR" && printf '%s\n' "$head" > "$seen_file"
+        return
+    fi
+    seen=$(head -n1 "$seen_file")
+    [ "$seen" = "$head" ] && return
+
+    if ! git -C "$KIT" merge-base --is-ancestor "$seen" "$head" 2> /dev/null; then
+        note "the kit checkpoint ${seen:0:7} is not an ancestor of ${head:0:7} (history rewritten?); review the kit, then run $KIT/plugin/scripts/kit-ack.sh"
+        return
+    fi
+    count=$(git -C "$KIT" rev-list --count "$seen..$head")
+    action_lines=$(git -C "$KIT" log --format=%B "$seen..$head" | grep '^Action: ' | cut -c9-)
+    actions=0
+    [ -n "$action_lines" ] && actions=$(printf '%s\n' "$action_lines" | wc -l | tr -d ' ')
+    note "kit moved ${seen:0:7}..${head:0:7}, $count commits, $actions Action; summarise git log and git diff --stat for the range (Action first), apply nothing silently, run $KIT/plugin/scripts/kit-ack.sh only after the user accepts"
+    if [ "$actions" -gt 0 ]; then
+        note "Action: $(printf '%s\n' "$action_lines" | head -3 | paste -sd'|' -)"
+    fi
+}
+
 check_wiring() {
     local import_line="@$KIT/CLAUDE.md" tilde_line="@~/claude-kit/CLAUDE.md"
     if ! grep -qxF -e "$tilde_line" -e "$import_line" "$CLAUDE_DIR/CLAUDE.md" 2> /dev/null; then
@@ -80,6 +105,7 @@ emit() {
 }
 
 check_clone
+check_checkpoint
 check_wiring
 emit
 exit 0
