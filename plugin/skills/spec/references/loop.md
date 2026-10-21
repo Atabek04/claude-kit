@@ -79,6 +79,8 @@ Under 40 lines, in this order:
   Never edit spec.md.
 - Before your last commit, run in the foreground the batch's Verify line and the lint and type checks of every
   workspace you changed.
+- A run too long for the foreground starts once with run_in_background, and you wait for its completion notice.
+  Never write a sleep or until loop that checks a marker file: each check-in spawns another one that never ends.
 - In that last commit, tick the batch's criteria in tasks.md and append its Session Log row, with the decisions and
   blockers the next batch needs.
 - If the batch contradicts the code, stop without committing further and report it.

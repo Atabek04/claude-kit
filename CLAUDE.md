@@ -68,6 +68,9 @@ loses. A deliberate bulk refactor needs the user to run `bulk-edit N` in their o
 file. Inside the window: show the change map, make the script print the changed-file count, then grep that the old
 string is gone. Never claim an edit succeeded without evidence.
 
+Never kill processes by a pattern match (`pkill -f`, a `ps | grep` list): the job that writes a file matches as
+well as the loops waiting on it. Read each candidate's full command and its child processes, then kill by PID.
+
 ## Libraries
 
 Read current docs through the `context7` MCP before writing or recommending code against any library, framework, SDK
