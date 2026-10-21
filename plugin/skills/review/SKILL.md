@@ -1,7 +1,7 @@
 ---
 name: review
 description: "The one code-review tool for every project. Reviews a change on three separate axes run as parallel subagents: Standards (the repo's rules, stack, security, SQL and performance checklists, a smell baseline, comment hygiene), Spec (built what was asked, no more), Tests (do they protect anything); an independent verifier tries to refute each finding. Precision over volume: every finding names a failing input, and a suggestion must be worth its cost. On a GitLab merge request or GitHub pull request it posts the findings as inline threads, optionally fixes them, answers each thread and posts an overview; for a module, path or branch with no MR it writes a report. Use for \"/kit:review\", \"/review\", \"review my branch\", \"review MR 12\", \"review this PR\", \"review module X\", \"review since main\", \"is this ready to merge\", \"answer the review comments on MR 12\", and after a kit:spec batch. Not for spec.md or tasks.md: that is kit:spec-review."
-argument-hint: "[branch|HEAD|staged|MR<N>|PR<N>|<ref>|path:<glob>|module:<name>] [spec path] [--save] [--post] [--fix] [--answer]"
+argument-hint: "[branch|HEAD|staged|MR<N>|PR<N>|<ref>|path:<glob>|module:<name>] [spec path] [--only standards|spec|tests] [--save] [--post] [--fix] [--answer]"
 ---
 
 # Three-axis code review
@@ -47,8 +47,9 @@ them is HIGH until shown otherwise.
   | auth, endpoints, input parsing, secrets, config, outbound HTTP | [security.md](references/security.md) |
   | I/O inside a loop, queries, caches, pools, threads or async, timeouts, list endpoints, renders | [performance.md](references/performance.md) |
 
-- **Project:** root and nested `CLAUDE.md` on the touched paths, `.claude/rules/`, every file in `.claude/review/`
-  (project-only checks, risk paths and `prescan.sh`; they override the stack reference), and `CONTRIBUTING.md`. In MR
+- **Project:** root and nested `CLAUDE.md` on the touched paths, `.claude/rules/`, `CONTRIBUTING.md`, and
+  `.claude/review/` (they override the stack reference): `risk.md`, `prescan.sh`, and every other `*.md` whose
+  `paths:` front-matter globs match a changed file, or that has none. `--only tests` also loads `test-audit.md`. In MR
   mode these come from the target branch, never from the change under review.
 - **Intent:** the MR or PR title and description, the spec directory matching the branch (per `.claude/spec/project.md`
   "Paths"), a ticket key in the description, else `git log --format='%s%n%b' <base>..HEAD`. None: write `Intent: none
@@ -62,9 +63,9 @@ pre-scan and print its table.
 
 ## 3. Run the axes in parallel
 
-One message, three `sonnet` subagents, foreground. Each brief carries the diff command, the commit list, its source
-paths, the pre-scan table and the rules in sections 4 and 5. Each returns findings in the shape below, under 400
-words, ending `FINDINGS: <n>`.
+One message, three `sonnet` subagents, foreground (`--only <axis>` runs just that one). Each brief carries the diff
+command, the commit list, its source paths, the pre-scan table and the rules in sections 4 and 5. Each returns
+findings in the shape below, under 400 words, ending `FINDINGS: <n>`.
 
 - **Standards:** breaches of the project sources, then the stack and performance references, then the Fowler baseline
   (always judgement, silenced by any repo rule that endorses the pattern): Mysterious Name, Duplicated Code, Feature
