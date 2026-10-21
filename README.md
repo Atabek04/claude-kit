@@ -19,7 +19,7 @@ Rules that a script can check are hooks. Everything else is short prose that loa
 | Build | Check | Learn |
 |---|---|---|
 | `spec` · `spec-write` · `spec-tasks` | `review` · `spec-review` | `teach` · `math-professor` |
-| `tdd` · `debug` · `frontend-design` | | `self-mastery-coach` |
+| `tdd` · `debug` · `frontend-design` · `mr-description` | | `self-mastery-coach` |
 
 Personal settings for the learning skills live in `~/.claude/learner.md`, outside the kit.
 
