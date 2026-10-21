@@ -26,7 +26,7 @@ GitLab and the root comment's number on GitHub; `threads` prints it in the first
    green before the push. More than five: post the findings, stop, and say a fresh session fixes the rest.
 8. `reply` in each thread: `Fixed in <sha>: <one line>` or `Declined: <reason>`. `resolve` only a thread this review
    opened and whose fix was verified; leave a human's thread open for the human.
-9. `note`: one overview at the end, a table of finding, outcome, commit, plus what was not run.
+9. `note`: one overview at the end, in the shape of "Overview note" below.
 
 ## Comment format
 
@@ -46,7 +46,16 @@ GitLab and the root comment's number on GitHub; `threads` prints it in the first
 - Line one is the outcome and the commit: `Fixed in abc1234: <what changed>`. Then, only if useful, the reason.
 - Disagreeing: evidence from the code first, then the decision; never "as discussed".
 - A decision between options names the options, the pick and the one reason (kit Decisions).
-- The overview note: a table (finding, outcome, commit), the verification (build and test counts), open follow-ups.
+
+## Overview note
+
+Written like an MR description ([mr-description](../../mr-description/SKILL.md)): a reader who stops after the first
+lines knows where the MR stands.
+- Opening, one to three sentences of prose: the verdict, what is blocking, what the change does well enough to merge.
+- A table (finding, outcome, commit). With more than eight findings, group the rows under `##` headers named after the
+  theme (`Error handling`, `Tests`), not after the axis.
+- `## Needs a decision`: only what the reviewer or the user must call, each with the options and the pick.
+- `## Not run`: checks skipped and why (no MR tests, no test stage). Never test counts or a list of what was clean.
 
 ## Answering someone else's review (`--answer`)
 
