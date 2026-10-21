@@ -14,9 +14,11 @@ catches that a linter does not.
 ## Spring
 
 - Field or setter injection; `@Value` scattered where one `@ConfigurationProperties` type belongs.
-- `@Transactional` on a private, protected or self-invoked method (the proxy never applies); on a controller; a
-  multi-repository write without it; a read path without `readOnly = true`.
-- An external HTTP call inside a transaction (holds a pooled connection for network latency).
+- `@Transactional` on a private or self-invoked method (the proxy never applies; protected works with class-based
+  proxies since Spring 6, interface proxies need `public`); on a controller; a multi-repository write without it; a
+  read path without `readOnly = true`.
+- An external HTTP call inside a transaction (holds a pooled connection for network latency, unless the project
+  acquires connections lazily; check before filing).
 - `@Async` self-invoked, or on the default unpooled executor; a future whose exception nobody handles.
 - `@EventListener` writing to the database when the publisher may roll back: `@TransactionalEventListener`.
 - Mutable state on a singleton bean without synchronisation; check-then-act without a unique constraint or lock.
@@ -33,7 +35,10 @@ catches that a linter does not.
 - `@ManyToOne`/`@OneToOne` left EAGER; a lazy collection touched in a loop (N+1): `@EntityGraph`, `JOIN FETCH`,
   `@BatchSize`; `JOIN FETCH` on a collection plus pagination (paginates in memory).
 - `CascadeType.ALL` or `REMOVE` on `@ManyToOne`; no `@Version` on concurrently edited aggregates.
-- `IDENTITY` ids with batch inserts (disables batching); `saveAndFlush` in a loop.
+- `IDENTITY` ids with batch inserts (disables batching; use a `SEQUENCE` whose `allocationSize` equals its
+  `INCREMENT`); `saveAndFlush` in a loop.
+- A large `IN (:ids)` list that is not chunked; `JOIN FETCH` on a collection with `setMaxResults`
+  (`hibernate.query.fail_on_pagination_over_collection_fetch=true` makes it fail fast).
 
 ## Tests
 

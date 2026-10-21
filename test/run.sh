@@ -401,6 +401,8 @@ run_inplace_cases() {
 . "$ROOT/test/check-publishable.sh"
 # shellcheck source=test/install.sh
 . "$ROOT/test/install.sh"
+# shellcheck source=test/mr-review.sh
+. "$ROOT/test/mr-review.sh"
 
 main() {
     mkdir -p "$WORK/cases" "$PROJ"
@@ -427,6 +429,7 @@ main() {
     run_kit_init_cases
     run_check_publishable_cases
     run_install_cases
+    run_mr_review_cases
     printf '%s passed, %s failed\n' "$PASS" "$FAIL"
     [ "$FAIL" -eq 0 ]
 }
