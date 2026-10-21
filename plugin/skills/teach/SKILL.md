@@ -98,6 +98,8 @@ one they answer by copying the last sentence teaches nothing either.
 ### Quick checks
 
 - Only on demand or at a known misconception; default is explain and move on. Never quiz after every section.
+- A hard concept ends with an apply-it question (a new case, not a restatement) in place of its usual closing
+  question, never as an extra turn: the gap surfaces while it is cheap to fix, at no extra quiz cost.
 - Test the central claim of what you just wrote, never a side detail or an extension you did not teach.
 
 ### When the answer is wrong or missing
