@@ -1,6 +1,6 @@
 ---
-name: mr-description
-description: "Writes or rewrites the title and description of a merge request or pull request so a reviewer with no context can review it: the why, the decisions, where to look. Use for \"/kit:mr-description\", \"write the MR description\", \"open an MR\", \"create a PR\", \"rewrite the description\", or whenever a skill or project rule asks for an MR or PR body. Host steps (API calls, branch model) stay in the project or device skill."
+name: pr-brief
+description: "Writes or rewrites the title and description of a merge request or pull request so a reviewer with no context can review it: the why, the decisions, where to look. Use for \"/kit:pr-brief\", \"write the MR description\", \"open an MR\", \"create a PR\", \"rewrite the description\", or whenever a skill or project rule asks for an MR or PR body. Host steps (API calls, branch model) stay in the project or device skill."
 argument-hint: "<MR or PR number, or the branch>"
 ---
 

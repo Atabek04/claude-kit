@@ -49,7 +49,7 @@ GitLab and the root comment's number on GitHub; `threads` prints it in the first
 
 ## Overview note
 
-Written like an MR description ([mr-description](../../mr-description/SKILL.md)): a reader who stops after the first
+Written like an MR description ([pr-brief](../../pr-brief/SKILL.md)): a reader who stops after the first
 lines knows where the MR stands.
 - Opening, one to three sentences of prose: the verdict, what is blocking, what the change does well enough to merge.
 - A table (finding, outcome, commit). With more than eight findings, group the rows under `##` headers named after the
