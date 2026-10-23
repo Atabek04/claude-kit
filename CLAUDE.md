@@ -94,7 +94,12 @@ releases, cited with the read date. Every research brief names context7 and the 
 
 ## Git
 
-Conventional Commits; never AI attribution (`commit-msg.sh` enforces both). Commit or push only when asked.
+Conventional Commits; never AI attribution (`commit-msg.sh` enforces both).
+- Commit as work lands, one logical chunk per commit, each green on the project's build gate. Push to the feature
+  branch or the project's integration branch without asking, a worktree agent to its own branch; never push to a
+  release or prod branch.
+- A merge request is a release event, not a work-done event: suggest one only when a change is ready for another
+  person to check on a shared stage, naming who checks what. Docs, TODO and tooling commits never trigger one.
 A commit the device owner must act on or customise carries an `Action: <what to do>` line in its body.
 
 ## Review and device sync
