@@ -66,6 +66,7 @@ A hook, linter or CI gate that blocks you leaves three moves: fix the code, fix 
 past a pattern, disable a gate, widen an ignore list without a stated reason, or regenerate a baseline over new
 violations; evasion is worse than failure because the diff looks like compliance. A false positive is a gate bug,
 fixed the same day with an allow and a deny case, and logged where that gate keeps its log.
+Chain a gate and the step it guards with `&&`, never `;`: a red gate must stop the commit or push.
 
 ## Files and shell
 
@@ -95,6 +96,7 @@ releases, cited with the read date. Every research brief names context7 and the 
   Gaps it reports are fixed in the brief, not by the worker.
 - `isolation: "worktree"` branches from the default branch: for feature-branch work, create each worktree from the
   branch HEAD yourself (`git worktree add -b <branch> <path> <sha>`) and name it in the brief.
+- When a live session built the thing in question, ask it (`ListAgents`, `SendMessage`) before re-deriving it.
 
 ## Git
 
