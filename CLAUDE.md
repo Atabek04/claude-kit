@@ -26,6 +26,10 @@ never tutorials; each line must prevent a real mistake. Where a rule belongs and
 - A plan that satisfies a requirement's letter while breaking its context (an enforced boundary, another phase's
   ownership) is the easy fix. When the requirement is what is wrong, amend the document, say why, then build.
 - Prove absence: state the search and the count. "I did not find X" and "there is no X" are different claims.
+- Before a change narrows or drops what an approved requirement promised, stop: quote the requirement, give the
+  options with their cost, and ask its owner. A technical constraint justifies a question, never a silent change.
+- Every report separates what was run from what was only read or inferred; an untested claim says so.
+- Suggest a next step only when it changes the user's next move, and name the trigger it waits for; no menus.
 
 ## Code
 
