@@ -33,9 +33,11 @@ never tutorials; each line must prevent a real mistake. Where a rule belongs and
 comment.
 - Comment only for: a non-obvious why, a contract the signature cannot carry (units, ranges, privacy, idempotency,
   ordering), a trap, an external standard or upstream bug the code obeys, deliberate weirdness.
-- Never: restating code or names; step narration; banners and section labels; signature-echo doc tags; class headers
-  that repeat the name; commented-out code; ceremony; praise or hedging; what an artifact lacks; claims the code
-  does not make true. Reread a comment whenever its code changes.
+- Never: restating code or names, including values, statuses or branches the code below spells out; step narration;
+  banners and section labels; signature-echo doc tags; class headers that repeat the name; a second copy of another
+  declaration's doc (link it: `[Type]`); retelling an upstream system's behaviour beyond the one clause that is the
+  why; commented-out code; ceremony; praise or hedging; what an artifact lacks; claims the code does not make true.
+- API schema descriptions state the rule the consumer sees, never our internals or upstream systems.
 - No doc on a small method whose name and signature already say it all, getters and overrides included. A long or
   tricky method keeps one line of intent or why: a missing why costs more than a stale one.
 - A "what" comment over a block means extract a method named after that what.
@@ -44,8 +46,9 @@ comment.
   because Y") stays.
 - No scaffolding IDs (spec, ticket, batch, task): state the rule in words or drop it. No roadmap ("for now", "until X
   exists"): plans go to the backlog; the only TODO is `TODO(<backlog file>#<item>): <what>`.
-- Length: one line is the target; caps and the 120-char width are enforced by `no-slop.sh` (the `kit` plugin, and
-  in CI via `Atabek04/claude-kit/hygiene`). A well-named class carries 0-3 comments.
+- Length: one line is the target, two for a tricky method, three only for a large public API; `no-slop.sh` blocks a
+  fourth (the `kit` plugin, and in CI via `Atabek04/claude-kit/hygiene`) and the 120-char width. A well-named class
+  carries 0-3 comments. Reread a comment whenever its code changes.
 - A method name is a verb phrase carrying its object (`findActiveBookings`), never a bare `get()`/`find()`/`run()`.
 - Naming: no `data`/`result`/`item`/`temp` as a whole name, no `*Manager`/`*Helper`/`*Util`/`*Wrapper`/
   `*Container`/`*Processor`, no `utils`/`helpers` files, no `handle()`/`process()`, no `XServiceImpl` for a single

@@ -35,8 +35,8 @@ A run-cap violation counts when its run contains an added line.
 
 ### Rules
 
-`step-narration`, `banner`, `section-label`, `signature-echo`, `todo-anchor`, `run-cap` (3 lines of `//` `#` `--`, 5 in a
-block or docstring), `width` (120 characters), `changelog`, `roadmap`, `commented-out-code`, `ticket-id`
+`step-narration`, `banner`, `section-label`, `signature-echo`, `todo-anchor`, `run-cap` (3 lines of `//` `#` `--`, 3 in a
+block or docstring, delimiter-only lines not counted), `width` (120 characters), `changelog`, `roadmap`, `commented-out-code`, `ticket-id`
 (config only), `go-package-doc`, `banned-name`. Markdown runs only `changelog`. `hint_for` in the script gives the fix for each.
 
 ### Per-project config

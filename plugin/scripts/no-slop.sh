@@ -87,7 +87,7 @@ function flush_L() {
     lcount = 0
 }
 function flush_B() {
-    if (bcount > 5) viol(bstart, bend, "run-cap", bcount " lines in one block comment (cap 5): " btext)
+    if (bcount > 3) viol(bstart, bend, "run-cap", bcount " lines in one block comment (cap 3): " btext)
     bcount = 0
 }
 function flush_runs() { flush_L(); flush_B() }

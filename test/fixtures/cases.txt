@@ -136,25 +136,29 @@ val a = 1
 # three
 # four
 x = 1
-=== run-cap deny: six block lines | src/A.kt | deny:run-cap
+=== run-cap deny: four block lines | src/A.kt | deny:run-cap
 /*
  * one
  * two
  * three
  * four
- * five
- * six
  */
 val a = 1
-=== run-cap deny: six docstring lines | scripts/a.py | deny:run-cap
+=== run-cap deny: four kdoc lines | src/A.kt | deny:run-cap
+/**
+ * one
+ * two
+ * three
+ * four
+ */
+fun a() = 1
+=== run-cap deny: four docstring lines | scripts/a.py | deny:run-cap
 def f():
     """
     one
     two
     three
     four
-    five
-    six
     """
     return 1
 === run-cap deny: four dash lines | db/a.sql | deny:run-cap
@@ -191,23 +195,25 @@ import httpx
 // two
 // three
 val a = 1
-=== run-cap allow: five block lines | src/A.kt | allow
+=== run-cap allow: three block lines | src/A.kt | allow
 /*
  * one
  * two
  * three
- * four
- * five
  */
 val a = 1
-=== run-cap allow: five docstring lines | scripts/a.py | allow
+=== run-cap allow: two kdoc lines with delimiters | src/A.kt | allow
+/**
+ * one
+ * two
+ */
+fun a() = 1
+=== run-cap allow: three docstring lines | scripts/a.py | allow
 def f():
     """
     one
     two
     three
-    four
-    five
     """
     return 1
 === run-cap allow: shebang plus three | scripts/a.sh | allow
