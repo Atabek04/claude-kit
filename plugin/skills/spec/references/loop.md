@@ -81,8 +81,8 @@ Under 40 lines, in this order:
   workspace you changed.
 - A run too long for the foreground starts once with run_in_background, and you wait for its completion notice.
   Never write a sleep or until loop that checks a marker file: each check-in spawns another one that never ends.
-- A changed shell script's tests also pass on Linux (CI's OS) before you commit, e.g. in an `ubuntu` container:
-  macOS hides GNU `stat`/`date`/`sed` differences and case-insensitive filenames.
+- A changed shell script's tests pass on both macOS and Linux (CI and WSL) before you commit; on a Mac, run them in
+  an `ubuntu` container. BSD and GNU `stat`/`date`/`sed` differ, and macOS hides case-insensitive filename clashes.
 - In that last commit, tick the batch's criteria in tasks.md and append its Session Log row, with the decisions and
   blockers the next batch needs.
 - If the batch contradicts the code, stop without committing further and report it.
