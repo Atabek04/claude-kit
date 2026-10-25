@@ -33,7 +33,8 @@ For each batch with an unchecked criterion, in order. `BASE` is `HEAD` when the 
 1. **Lock** the tests older than `BASE`, except the `Unlock:` paths, by project.md "Loop".
 2. **Implement.** One subagent with the implement briefing.
 3. **Verify on disk, not from the prose.** Tree clean; `HEAD` is the reported SHA and is new; every criterion of the
-   batch is `[x]`; the Session Log has the batch's row.
+   batch is `[x]`; the Session Log has the batch's row; every test class the batch added, independent tests
+   included, is named on its `Verify:` line, by project.md "Loop"'s check when it has one.
 4. **Independent tests.** A second subagent with the test briefing. It never saw the implementer's session, so its
    oracle can only come from the spec. After `PASS` verify as in stage 3; after `FAIL` the failing tests are the only
    uncommitted change.
