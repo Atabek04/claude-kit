@@ -99,6 +99,8 @@ releases, cited with the read date. Every research brief names context7 and the 
 - `isolation: "worktree"` branches from the default branch: for feature-branch work, create each worktree from the
   branch HEAD yourself (`git worktree add -b <branch> <path> <sha>`) and name it in the brief.
 - When a live session built the thing in question, ask it (`ListAgents`, `SendMessage`) before re-deriving it.
+- Heavy builds that would exhaust the device go to a cloud session, one file-disjoint task each, branch pushed
+  first; what a project must commit for that: the kit's `docs/cloud-sessions.md`.
 
 ## Git
 
