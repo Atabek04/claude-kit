@@ -9,6 +9,8 @@ https://code.claude.com/docs/en/cloud-environments.
 - **A setup script** (`scripts/cloud-setup.sh`), run by the environment's setup field. Installs and image pulls only:
   the cache is a filesystem snapshot, so a started service is lost. It must exit 0 within about five minutes or
   nothing is cached, and environment variables are not set yet when it runs. Turn on the repo's git hooks here.
+  The cache rebuilds only when the environment's own setup field or network level changes, never on a repo commit:
+  every change to the script also edits a `# cache bump <date>: <why>` line in that field.
 - **A SessionStart hook** that returns at once unless `CLAUDE_CODE_REMOTE=true`, and starts the services each
   session.
 - **The project `CLAUDE.md`** carries every rule the session needs: `~/.claude`, this kit included, does not reach
