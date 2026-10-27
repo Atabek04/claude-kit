@@ -39,7 +39,8 @@ New project: `bin/kit-init <path>` scaffolds the git hooks, the hygiene workflow
 - The kit `CLAUDE.md` and matching `rules/` are already loaded; never copy them into a project file.
 - A project's `CLAUDE.md`, `.claude/rules/`, `.claude/review/` and `.claude/debug/` hold only what is true of that
   project, and win on conflict.
-- A lesson for every project ends a report as `Kit: <rule> -> <file>`, applied only after the user says yes.
+- A lesson ends a report as one `Lesson:` line (kit `CLAUDE.md`, "Propose, then apply"), applied only after the user
+  says yes.
 
 ## Changing the kit
 

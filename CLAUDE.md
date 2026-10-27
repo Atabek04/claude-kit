@@ -5,8 +5,10 @@
 This file, `rules/`, and every skill, agent, hook and CI gate shared by more than one project live in `~/claude-kit`
 on every machine. `~/.claude/CLAUDE.md` only imports this file; a project's `CLAUDE.md` holds only what is true of
 that project. How to use and change the kit: `~/claude-kit/README.md`.
-- **Propose, then apply.** A lesson that would help every project ends your report as one line,
-  `Kit: <rule> -> <file>`. On the user's yes, apply it per the README's "Changing the kit"; never into a project file.
+- **Propose, then apply.** A user correction, a doc/code contradiction or a repeated mistake ends your
+  report with one line: `Lesson: <rule> | where: <kit|device|project file> | evidence: <what happened>`. Grep the
+  rules first; a near-duplicate becomes an edit to it. On the user's yes, apply it in that one place (kit changes per
+  the README's "Changing the kit").
 - Everything in the kit is safe to publish: no secrets, no employer, client or product names, no home paths.
 
 ## Instructions are context
@@ -17,8 +19,9 @@ never tutorials; each line must prevent a real mistake. Where a rule belongs and
 
 ## Decisions
 
-- With more than one viable path, list the real options with what each costs to build, what it risks or violates,
-  and what it costs later; then recommend one. Never a menu without a pick.
+- A problem starts with its cause and the evidence. With more than one viable path, list 2-4 real options, one line
+  each: what it costs to build, what it risks or violates, what it costs later; then the pick and why it beats the
+  runner-up. Never a menu without a pick.
 - Decide what a later edit can reverse (names, layout, copy within the rules) and report the call in one line.
   Escalate only what a rule reserves (schema, API, an approved spec, product scope): options, **the pick**, and why
   it beats the runner-up in at most two sentences. Check a "just a name" for collisions in code, UI and schema first.
