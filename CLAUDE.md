@@ -73,7 +73,8 @@ A hook, linter or CI gate that blocks you leaves three moves: fix the code, fix 
 past a pattern, disable a gate, widen an ignore list without a stated reason, or regenerate a baseline over new
 violations; evasion is worse than failure because the diff looks like compliance. A false positive is a gate bug,
 fixed the same day with an allow and a deny case, and logged where that gate keeps its log.
-Chain a gate and the step it guards with `&&`, never `;`: a red gate must stop the commit or push.
+Chain a gate and the step it guards with `&&`, never `;`: a red gate must stop the commit or push. Never pipe a gate
+into `tail`/`grep` in that chain: the pipe returns the filter's status and a red gate passes. Redirect to a file.
 
 ## Files and shell
 
