@@ -94,6 +94,20 @@ check_wiring() {
     fi
 }
 
+# The plugin runs from Claude Code's cache, not the clone: a pull does not install new skills, hooks or scripts.
+check_plugin() {
+    local installed head
+    command -v jq > /dev/null 2>&1 || return
+    installed=$(jq -r '.plugins["kit@claude-kit"][0].gitCommitSha // empty' \
+        "$CLAUDE_DIR/plugins/installed_plugins.json" 2> /dev/null)
+    head=$(git -C "$KIT" rev-parse HEAD 2> /dev/null)
+    if [ -z "$installed" ] || [ -z "$head" ] || [ "$installed" = "$head" ]; then
+        return
+    fi
+    git -C "$KIT" diff --quiet "$installed" "$head" -- plugin 2> /dev/null && return
+    note "the installed kit plugin is ${installed:0:7}, the clone's plugin/ differs at ${head:0:7}; run 'claude plugin update kit@claude-kit' and restart, or new skills stay unavailable"
+}
+
 emit() {
     [ -z "$NOTES" ] && return
     if command -v jq > /dev/null 2>&1; then
@@ -107,5 +121,6 @@ emit() {
 check_clone
 check_checkpoint
 check_wiring
+check_plugin
 emit
 exit 0

@@ -112,6 +112,27 @@ run_sync_kit_cases() {
     assert_has "sync-kit: missing import is reported" "$SYNC_OUT" "lacks the $SYNC_IMPORT import"
 
     sync_fixture
+    mkdir -p "$s/home/.claude/plugins"
+    jq -n --arg sha "$(git -C "$s/kit" rev-parse HEAD)" '{plugins: {"kit@claude-kit": [{gitCommitSha: $sha}]}}' \
+        > "$s/home/.claude/plugins/installed_plugins.json"
+    run_sync
+    assert_eq "sync-kit: plugin installed at HEAD is silent" "0:" "$SYNC_STATUS:$SYNC_OUT"
+    push_from_pusher "docs only"
+    run_sync
+    run_kit_ack
+    run_sync
+    assert_eq "sync-kit: an install behind on docs only is silent" "0:" "$SYNC_STATUS:$SYNC_OUT"
+    mkdir -p "$s/pusher/plugin"
+    printf 'x\n' > "$s/pusher/plugin/skill.md"
+    git -C "$s/pusher" add -A
+    git -C "$s/pusher" commit -q -m "feat: new skill"
+    git -C "$s/pusher" push -q origin main
+    run_sync
+    run_kit_ack
+    run_sync
+    assert_has "sync-kit: an install behind on plugin/ asks for an update" "$SYNC_OUT" "claude plugin update kit@claude-kit"
+
+    sync_fixture
     rm "$s/home/.claude/rules/kit"
     run_sync
     assert_has "sync-kit: missing rules symlink is reported" "$SYNC_OUT" "rules/kit symlink"
