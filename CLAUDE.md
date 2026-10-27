@@ -98,6 +98,9 @@ releases, cited with the read date. Every research brief names context7 and the 
   Gaps it reports are fixed in the brief, not by the worker.
 - `isolation: "worktree"` branches from the default branch: for feature-branch work, create each worktree from the
   branch HEAD yourself (`git worktree add -b <branch> <path> <sha>`) and name it in the brief.
+- A new worktree has no gitignored files: copy `.env*`, point every origin at a reachable stage (the main checkout's
+  may name local services that are not running) and install dependencies in it, never a symlink. Before handing over
+  a running app, prove one authenticated call through it; the project's `CLAUDE.md` names the stage values.
 - When a live session built the thing in question, ask it (`ListAgents`, `SendMessage`) before re-deriving it.
 - Heavy builds that would exhaust the device go to a cloud session, one file-disjoint task each, branch pushed
   first; what a project must commit for that: the kit's `docs/cloud-sessions.md`.
