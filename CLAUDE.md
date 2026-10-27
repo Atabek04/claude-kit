@@ -48,6 +48,10 @@ comment.
 - No doc on a small method whose name and signature already say it all, getters and overrides included. A long or
   tricky method keeps one line of intent or why: a missing why costs more than a stale one.
 - A "what" comment over a block means extract a method named after that what.
+- **A comment about a condition names the exact predicate the code checks**, in domain words, true for every input
+  ("calls the registry only when a certificate matches the category and it is not A1"), never a paraphrase implying
+  an alternative the domain lacks ("when booking a category"). A phrase with two readings names the field instead.
+- Reread every comment as a domain expert who never saw the diff: one meaning, and it matches the code.
 - **A comment must be true for a reader who never sees this diff.** No changelog ("removed", "used to", dates) and no
   investigation transcript; state the conclusion and the constraint. A timeless warning ("deliberately not X,
   because Y") stays.
