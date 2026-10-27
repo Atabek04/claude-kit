@@ -45,7 +45,8 @@ run_kit_init_cases() {
 
     kit_init "$d/.githooks"
     assert_eq "kit-init: a path inside the repo resolves to its root" "0" "$KIT_INIT_STATUS"
-    assert_has "kit-init: the root is named" "$KIT_INIT_OUT" "kit-init: $d"
+    # git prints the physical root, so a symlinked checkout compares against the resolved path
+    assert_has "kit-init: the root is named" "$KIT_INIT_OUT" "kit-init: $(cd "$d" && pwd -P)"
 
     local e="$WORK/init-existing"
     new_repo "$e"
