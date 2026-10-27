@@ -115,7 +115,8 @@ releases, cited with the read date. Every research brief names context7 and the 
 
 ## Git
 
-Conventional Commits; never AI attribution (`commit-msg.sh` enforces both).
+Conventional Commits, one line: a single literal `-m "..."`, no body, no `$(...)`; only an `Action:` line may follow.
+Never AI attribution. `commit-msg.sh` enforces all of it; a second point is a second commit.
 - Commit as work lands, one logical chunk per commit, each green on the project's build gate. Push to the feature
   branch or the project's integration branch without asking, a worktree agent to its own branch; never push to a
   release or prod branch.
