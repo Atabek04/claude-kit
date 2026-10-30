@@ -295,6 +295,25 @@ val a = 1
 We removed the old flow last week.
 === changelog deny: markdown used to | docs/NOTES.md | deny:changelog
 The file used to hold the schema.
+=== changelog deny: old value beside new | src/main/resources/application.yml | deny:changelog
+# 4 s, not 3: the p99 sits just above 3 s.
+read-timeout: 4s
+=== changelog deny: old value beside new, Russian | src/main/resources/application.yml | deny:changelog
+# 4 с, а не 3: p99 чуть выше 3 с.
+read-timeout: 4s
+=== changelog deny: instead of a number | src/A.kt | deny:changelog
+// 40 connections instead of 20
+val a = 1
+=== changelog deny: raised from | scripts/a.py | deny:changelog
+# raised from 2 to avoid timeouts
+x = 1
+=== changelog deny: вместо числа | src/A.kt | deny:changelog
+// 40 соединений вместо 20
+val a = 1
+=== changelog allow: number beside a non-number | src/A.kt | allow
+// Returns 0, not null, when the list is empty.
+// Retries 3 times, not in parallel.
+val a = 1
 === changelog allow: removed items | src/A.kt | allow
 // Removed items are kept for 30 days.
 // The migration was added by Flyway.

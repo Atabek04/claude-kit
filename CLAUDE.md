@@ -54,7 +54,7 @@ comment.
 - Reread every comment as a domain expert who never saw the diff: one meaning, and it matches the code.
 - **A comment must be true for a reader who never sees this diff.** No changelog ("removed", "used to", dates) and no
   investigation transcript; state the conclusion and the constraint. A timeless warning ("deliberately not X,
-  because Y") stays.
+  because Y") stays. Never the old value or the value the line shows ("4 s, not 3", "instead of 20"): only the reason.
 - No scaffolding IDs (spec, ticket, batch, task): state the rule in words or drop it. No roadmap ("for now", "until X
   exists"): plans go to the backlog; the only TODO is `TODO(<backlog file>#<item>): <what>`.
 - The why behind a tuned value (timeout, pool size, limit) sits once, next to the value in config; the code that reads

@@ -170,6 +170,9 @@ function changelog_hit(s, ls, dated_ok) {
     if (ls ~ /(^|[^a-z0-9_])(this|it|that|the (rule|file|function|method|field|check|list))[ \t]+(used to|previously)([^a-z0-9_]|$)/) return 1
     if (ls ~ /(^|[^a-z0-9_])(we|i)[ \t]+((just|now|then)[ \t]+)?(removed|added|deleted|replaced|renamed|refactored|changed|moved|split|inlined)([^a-z0-9_]|$)/) return 1
     if (dated_ok && ls ~ /(^|[^a-z0-9_])(until|as of|before)[ \t]+20[0-9][0-9](-[0-9][0-9])?([^0-9]|$)/) return 1
+    if (ls ~ /[0-9][^,;:]{0,12},[ \t]+(not|а не)[ \t]+[0-9]/) return 1
+    if (ls ~ /(^|[^a-z0-9_])(instead of|(raised|lowered|increased|reduced|bumped) from)[ \t]+[0-9]/) return 1
+    if (ls ~ /(вместо|(увеличен|уменьшен|поднят|снижен)[^ \t]*[ \t]+с)[ \t]+[0-9]/) return 1
     return 0
 }
 
