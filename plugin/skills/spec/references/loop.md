@@ -59,6 +59,12 @@ For each batch with an unchecked criterion, in order. `BASE` is `HEAD` when the 
 
 At most five subagent spawns per remaining batch.
 
+**Parallel batches.** A batch whose `Depends:` batches are all done and whose `Files:` share nothing with a batch in
+flight may run its stages in its own worktree, cut from the spec branch HEAD (kit `CLAUDE.md` § Subagents). Its
+briefing adds: stay inside its `Files:`, append only its own Session Log row. When its stage 6 passes, cherry-pick its
+commits onto the spec branch (a Session Log conflict keeps both rows), then run the gate once over every batch picked
+since the last gate. At most four workers at once, across all batches.
+
 ## The implement briefing
 
 Under 40 lines, in this order:
