@@ -57,6 +57,8 @@ comment.
   because Y") stays.
 - No scaffolding IDs (spec, ticket, batch, task): state the rule in words or drop it. No roadmap ("for now", "until X
   exists"): plans go to the backlog; the only TODO is `TODO(<backlog file>#<item>): <what>`.
+- The why behind a tuned value (timeout, pool size, limit) sits once, next to the value in config; the code that reads
+  it carries no comment.
 - Length: one line is the target, two for a tricky method, three only for a large public API; `no-slop.sh` blocks a
   fourth (the `kit` plugin, and in CI via `Atabek04/claude-kit/hygiene`) and the 120-char width. A well-named class
   carries 0-3 comments. Reread a comment whenever its code changes.
