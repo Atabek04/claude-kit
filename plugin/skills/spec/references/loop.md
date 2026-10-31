@@ -30,7 +30,10 @@ Stop and name the missing step if any fails:
 
 For each batch with an unchecked criterion, in order. `BASE` is `HEAD` when the batch starts.
 
-1. **Lock** the tests older than `BASE`, except the `Unlock:` paths, by project.md "Loop".
+1. **Lock** the tests older than `BASE`, except the `Unlock:` paths, by project.md "Loop". First, one `haiku` search
+   subagent lists every locked test that names a symbol, route, column, message or fixture state the batch changes;
+   add the identifier-only and setup-only ones to the `Unlock:` line now, so the implementer's one stop covers only
+   what the search missed.
 2. **Implement.** One subagent with the implement briefing.
 3. **Verify on disk, not from the prose.** Tree clean; `HEAD` is the reported SHA and is new; every criterion of the
    batch is `[x]`; the Session Log has the batch's row; every test class the batch added, independent tests
@@ -51,6 +54,10 @@ For each batch with an unchecked criterion, in order. `BASE` is `HEAD` when the 
   test against `spec.md` like any finding. Wait for every stage-5 result, then fix the round by "Who fixes it". The
   fix commits on top, keeps older tests locked, is never red, and runs the check that failed before committing. Then
   stage 5 again: the gate always, the reviewers only when the fix changed production logic or a test.
+- **After every round with a finding,** update the checklist project.md "Loop" names: for each finding no line
+  already covers, add or sharpen at most one line, the check the implementer should have run, in the words of a rule
+  that applies beyond this batch. Never more than one line per round. The list stays under its cap: a line hit in two
+  batches becomes a gate or a project rule and leaves the list; a line no finding needed for ten batches goes.
 - **`RESULT: FAILED`:** save the patch to the scratch directory, `git reset --hard <BASE>`, and brief a fresh attempt
   with the error and the patch path.
 - **A second failing round in one batch, or the same gate failing with the same cause in two batches:** stop and
@@ -72,7 +79,8 @@ Under 40 lines, in this order:
 1. **Mission:** the capability in one sentence, the worktree, branch and `BASE`, and "invoke `kit:spec` and follow
    'One batch' to the letter".
 2. **What matters here:** the rules and traps this batch's criteria cite, quoted; the Session Log decisions it depends
-   on; the riskiest part and how a wrong approach would show. Never the whole spec.
+   on; the riskiest part and how a wrong approach would show; the path of the checklist project.md "Loop" names.
+   Never the whole spec.
 3. **Done means:** the batch's criteria and `Verify:` line, quoted.
 4. **Fixed constraints,** verbatim, plus project.md "Loop" additions:
 
@@ -84,8 +92,11 @@ Under 40 lines, in this order:
 - Tests that existed before BASE are locked. One that fails means the code is wrong or the spec contradicts it.
 - Do not push and do not run the full gate: the orchestrator runs it after you. Do not touch another batch's tasks.
   Never edit spec.md.
-- Before your last commit, run in the foreground the batch's Verify line and the lint and type checks of every
-  workspace you changed.
+- Before your last commit, run in the foreground the batch's Verify line, the test groups of the modules you
+  touched, and the lint and type checks of every workspace you changed. The full suite is not yours: the push gate
+  runs it once.
+- Read the checklist before your first edit and check the diff against every line before your last commit; the
+  review should confirm your work, not discover its gaps.
 - A run too long for the foreground starts once with run_in_background, and you wait for its completion notice.
   Never write a sleep or until loop that checks a marker file: each check-in spawns another one that never ends.
 - A changed shell script's tests pass on both macOS and Linux (CI and WSL) before you commit; on a Mac, run them in

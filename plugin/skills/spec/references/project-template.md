@@ -53,8 +53,8 @@ The commands that make a batch green. `kit:review` runs after them; name any ext
 
 ## Loop
 
-For `--loop`: gate command, test lock, reviewers beyond `kit:review`,
-extra briefing constraints, or "not used" and what replaces it.
+For `--loop`: gate command, test lock, reviewers beyond `kit:review`, the implementer checklist (path and line cap,
+grown one line per review round by `loop.md`), extra briefing constraints, or "not used" and what replaces it.
 
 ## Commits
 
