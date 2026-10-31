@@ -77,6 +77,7 @@ violations; evasion is worse than failure because the diff looks like compliance
 fixed the same day with an allow and a deny case, and logged where that gate keeps its log.
 Chain a gate and the step it guards with `&&`, never `;`: a red gate must stop the commit or push. Never pipe a gate
 into `tail`/`grep` in that chain: the pipe returns the filter's status and a red gate passes. Redirect to a file.
+The full suite runs once per change, at the gate that guards the push; an inner loop runs what the change touches.
 
 ## Files and shell
 
@@ -106,6 +107,8 @@ releases, cited with the read date. Every research brief names context7 and the 
 - At most 4 workers at once. Before more than 5 in total, state count, model and rough tokens (~250k each) and wait.
 - A brief names the files the worker may touch, those it must not, the checks it runs and the report it returns.
   Gaps it reports are fixed in the brief, not by the worker.
+- Clear a worker's blockers before it starts (permissions, unlocks, access): each mid-run stop costs a full context
+  reload. A recurring review finding becomes one line in the checklist the next brief carries, never a longer brief.
 - `isolation: "worktree"` branches from the default branch: for feature-branch work, create each worktree from the
   branch HEAD yourself (`git worktree add -b <branch> <path> <sha>`) and name it in the brief.
 - A new worktree has no gitignored files: copy `.env*`, point every origin at a reachable stage (the main checkout's
