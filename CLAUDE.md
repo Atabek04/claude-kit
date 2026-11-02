@@ -34,6 +34,8 @@ never tutorials; each line must prevent a real mistake. Where a rule belongs and
 - Before a change narrows or drops what an approved requirement promised, stop: quote the requirement, give the
   options with their cost, and ask its owner. A technical constraint justifies a question, never a silent change.
 - Every report separates what was run from what was only read or inferred; an untested claim says so.
+  An artifact built from partly invented data names each invented value in its file name or caption, never only
+  "prod" or "real".
 - Suggest a next step only when it changes the user's next move, and name the trigger it waits for; no menus.
 
 ## Code
