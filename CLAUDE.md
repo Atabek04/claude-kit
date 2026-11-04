@@ -49,7 +49,8 @@ comment.
 - Never: restating code or names, including values, statuses or branches the code below spells out; step narration;
   banners and section labels; signature-echo doc tags; class headers that repeat the name; a second copy of another
   declaration's doc (link it: `[Type]`); retelling an upstream system's behaviour beyond the one clause that is the
-  why; commented-out code; ceremony; praise or hedging; what an artifact lacks; claims the code does not make true.
+  why; commented-out code; ceremony; praise or hedging; what an artifact lacks; claims the code does not make true;
+  an unverified hypothesis about a network, environment or upstream (config and manifests too).
 - API schema descriptions state the rule the consumer sees, never our internals or upstream systems.
 - No doc on a small method whose name and signature already say it all, getters and overrides included. A long or
   tricky method keeps one line of intent or why: a missing why costs more than a stale one.
