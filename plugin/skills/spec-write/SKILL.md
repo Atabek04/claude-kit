@@ -49,5 +49,6 @@ already states is never copied in; name it in one clause if the reader needs to 
 - **UI detail belongs to the design artifact, not to prose.** The spec records only behaviour a design cannot show:
   what a tap does, what is hidden by default, what is computed.
 - **A trap or a "reuse X" line is written from the open file, never from memory:** the exact path, line and callers.
-  A wrong one makes the implementer stop or, worse, build on it.
+  A wrong one makes the implementer stop or, worse, build on it. The same holds for every component, menu, route and
+  page a rule or the design names as a place: open it first, and list every page the change reaches in scope.
 - Never leave `[TBD]`: decide it, or make it an open question.
