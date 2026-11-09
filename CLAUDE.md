@@ -43,6 +43,10 @@ never tutorials; each line must prevent a real mistake. Where a rule belongs and
 - Every report separates what was run from what was only read or inferred; an untested claim says so.
   An artifact built from partly invented data names each invented value in its file name or caption, never only
   "prod" or "real".
+- A status of several tasks is read by someone juggling many: one bullet per task, opening with its linked key, a
+  state word and what it is for in plain words; one-line sub-bullets for where it lives (prod tag, test, branch,
+  worktree, nowhere), each action left with its owner, the blocker. Name a code, label or file by what it does and
+  which task it serves ("the holiday reason label in the Excel report, task 44"), never bare; no prose per task.
 - Suggest a next step only when it changes the user's next move, and name the trigger it waits for; no menus.
 
 ## Code
