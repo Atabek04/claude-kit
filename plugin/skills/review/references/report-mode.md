@@ -37,5 +37,5 @@ Per axis headings stay separate, as in SKILL.md section 5. A finding block is:
 
 A review never fixes in the context that produced it. With up to five P0/P1 findings and `--fix`, fix them in this
 session (hard findings first, one commit per finding, tests green). With more, end by printing a fresh-session
-prompt that names the report: re-read each cited file before touching it, push back on a finding the code disproves,
+prompt (`kit:brief`) that names the report: re-read each cited file before touching it, push back on a finding the code disproves,
 one commit per finding, append a `## Resolution` section (fixed with sha, declined with reason) when done.

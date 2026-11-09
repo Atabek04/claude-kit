@@ -112,8 +112,8 @@ releases, cited with the read date. Every research brief names context7 and the 
   carrying out a written spec runs on `sonnet`, pure search on `haiku`, `opus` only for an open design question
   (say why in the description).
 - At most 4 workers at once. Before more than 5 in total, state count, model and rough tokens (~250k each) and wait.
-- A brief names the files the worker may touch, those it must not, the checks it runs and the report it returns.
-  Gaps it reports are fixed in the brief, not by the worker.
+- Every brief and new-session prompt follows `kit:brief`. Gaps a worker reports are fixed in the brief, not by the
+  worker.
 - Clear a worker's blockers before it starts (permissions, unlocks, access): each mid-run stop costs a full context
   reload. A recurring review finding becomes one line in the checklist the next brief carries, never a longer brief.
 - `isolation: "worktree"` branches from the default branch: for feature-branch work, create each worktree from the
