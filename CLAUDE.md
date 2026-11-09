@@ -36,6 +36,7 @@ never tutorials; each line must prevent a real mistake. Where a rule belongs and
 - Prove absence: state the search and the count. "I did not find X" and "there is no X" are different claims.
 - Code that depends on another service's behaviour (what it checks, refuses, calls back) is built from that service's
   current code, cited `file:line`, never from our docs, comments or DTO names; a contradiction fixes the doc too.
+  What a field means comes from the code of every service that writes it, not the one that reads it.
 - Before a question goes to anyone (user, analyst, designer, a ticket or backlog), call the endpoint or read the code
   and doc that would answer it. Only what none of them settles stays a question; a mock-up typo is a note, not one.
 - Before a change narrows or drops what an approved requirement promised, stop: quote the requirement, give the
