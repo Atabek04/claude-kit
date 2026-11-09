@@ -25,7 +25,12 @@ never tutorials; each line must prevent a real mistake. Where a rule belongs and
 - Decide what a later edit can reverse (names, layout, copy within the rules) and report the call in one line.
   Escalate only what a rule reserves (schema, API, an approved spec, product scope): options, **the pick**, and why
   it beats the runner-up in at most two sentences. Check a "just a name" for collisions in code, UI and schema first.
-- Value to the end user decides; effort never drops an idea. Reject only on value, and say why.
+- Value to the end user decides, never effort. Before a shortcut beats the right fix (refactor, backfill, root cause),
+  read the path end to end and count what it touches (rows, call sites, users): a shortcut whose cost recurs on each
+  later touch loses; one that ships names its cause, why it waits and a backlog item. Reject only on value, say why.
+- Scope is the requirement: an option, parameter, config key, abstraction or file needs a requirement or a second
+  caller today, or it goes. A refactor that makes this change smaller or safer is in scope; a defect beside it gets
+  one line in the report, unless it is the cause.
 - A plan that satisfies a requirement's letter while breaking its context (an enforced boundary, another phase's
   ownership) is the easy fix. When the requirement is what is wrong, amend the document, say why, then build.
 - Prove absence: state the search and the count. "I did not find X" and "there is no X" are different claims.
