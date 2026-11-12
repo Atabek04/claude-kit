@@ -65,6 +65,13 @@ comment.
 - No doc on a small method whose name and signature already say it all, getters and overrides included. A long or
   tricky method keeps one line of intent or why: a missing why costs more than a stale one.
 - A "what" comment over a block means extract a method named after that what.
+- **Write it like a telegram: one fact, then its consequence** (`<fact the code cannot show>: <effect>`). Cut words
+  until the meaning breaks; fragments are fine, filler and connective prose are not. A `;` or "and" joining two facts
+  means one is noise or lives elsewhere. ✗ `Partner systems without a staff JWT: the registry searches bookings by
+  any ID, the panel writes the login log.` ✓ `Service accounts only: the response holds any citizen's bookings.`
+- **A fact lives once, at its owner:** a default or trap on the line that decides it, a role set's meaning on the set.
+  A group or caller never repeats it ("closed to citizens" on every block); a group's comment says why the group
+  exists or sits where it does, never what it contains.
 - **A comment about a condition names the exact predicate the code checks**, in domain words, true for every input
   ("calls the registry only when a certificate matches the category and it is not A1"), never a paraphrase implying
   an alternative the domain lacks ("when booking a category"). A phrase with two readings names the field instead.
