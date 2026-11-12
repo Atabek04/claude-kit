@@ -31,9 +31,10 @@ Stop and name the missing step if any fails:
 For each batch with an unchecked criterion, in order. `BASE` is `HEAD` when the batch starts.
 
 1. **Lock** the tests older than `BASE`, except the `Unlock:` paths, by project.md "Loop". First, one `haiku` search
-   subagent lists every locked test that names a symbol, route, column, message or fixture state the batch changes;
-   add the identifier-only and setup-only ones to the `Unlock:` line now, so the implementer's one stop covers only
-   what the search missed.
+   subagent lists every locked test that names a symbol, route, column, message or fixture state the batch changes,
+   and every one that sends as invalid a value this batch makes valid (an enum value, type or code it adds); add the
+   identifier-only, setup-only and invalid-value ones to the `Unlock:` line now, so the implementer's one stop covers
+   only what the search missed.
 2. **Implement.** One subagent with the implement briefing.
 3. **Verify on disk, not from the prose.** Tree clean; `HEAD` is the reported SHA and is new; every criterion of the
    batch is `[x]`; the Session Log has the batch's row; every test class the batch added, independent tests
