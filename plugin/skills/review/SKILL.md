@@ -46,6 +46,7 @@ them is HIGH until shown otherwise.
   | migrations, `*.sql`, entities, repositories, queries | [sql.md](references/sql.md) |
   | auth, endpoints, input parsing, secrets, config, outbound HTTP | [security.md](references/security.md) |
   | I/O inside a loop, queries, caches, pools, threads or async, timeouts, list endpoints, renders | [performance.md](references/performance.md) |
+  | a status, phase or lifecycle field, flags for one process, callbacks, consumers, retries, timers | [state-machines.md](references/state-machines.md) |
 
 - **Project:** root and nested `CLAUDE.md` on the touched paths, `.claude/rules/`, `CONTRIBUTING.md`, and
   `.claude/review/` (they override the stack reference): `risk.md`, `prescan.sh`, and every other `*.md` whose
