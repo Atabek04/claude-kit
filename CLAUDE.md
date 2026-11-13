@@ -92,6 +92,8 @@ comment.
   impl, no boolean parameters, no `getX()` that does I/O or mutates (`fetchX`, `loadX`). Same concept, same word.
 - One way per job: grep for the existing utility, client, error shape or UI primitive first; extend it, never fork
   it. A class or file used from one place that adds no abstraction gets inlined.
+- A lifecycle (status, phase, step) is one enum or sealed type, changed only through one method that rejects an
+  illegal from → to; never two flags for one process, never a raw assignment from a caller.
 
 ## Gates
 
