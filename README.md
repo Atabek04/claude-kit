@@ -30,7 +30,7 @@ gh repo clone Atabek04/claude-kit ~/claude-kit && ~/claude-kit/install.sh
 ```
 
 Safe to re-run; `install.sh --check` only reports. It imports `CLAUDE.md` into `~/.claude/CLAUDE.md`, links `rules/`,
-installs the `kit` plugin with auto-update, and sources `bulk-edit` in `~/.zshrc`. Needs bash 3.2+, `jq`, `git`, `awk`.
+and installs the `kit` plugin with auto-update. Needs bash 3.2+, `jq`, `git`, `awk`.
 
 New project: `bin/kit-init <path>` scaffolds the git hooks, the hygiene workflow and a `CLAUDE.md` skeleton.
 

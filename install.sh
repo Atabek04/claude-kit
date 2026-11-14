@@ -242,17 +242,19 @@ step_auto_update() {
     fi
 }
 
+# The kit no longer ships shell/bulk-edit.zsh: a leftover source line would fail every new shell.
 step_shell() {
-    local line="source ~/claude-kit/shell/bulk-edit.zsh"
-    [ "$KIT" = "$HOME/claude-kit" ] || line="source $KIT/shell/bulk-edit.zsh"
+    local tmp
     echo "Shell"
-    if grep -qF 'shell/bulk-edit.zsh' "$ZSHRC" 2> /dev/null; then
-        ok "$ZSHRC sources bulk-edit"
+    if ! grep -qF 'shell/bulk-edit.zsh' "$ZSHRC" 2> /dev/null; then
+        ok "$ZSHRC sources nothing from the kit"
         return
     fi
-    needs "append '$line' to $ZSHRC" || return
-    printf '\n%s\n' "$line" >> "$ZSHRC"
-    changed "appended the bulk-edit source line to $ZSHRC"
+    needs "remove the bulk-edit source line from $ZSHRC" || return
+    tmp=$(mktemp)
+    grep -vF 'shell/bulk-edit.zsh' "$ZSHRC" > "$tmp"
+    cat "$tmp" > "$ZSHRC" && rm -f "$tmp"
+    changed "removed the bulk-edit source line from $ZSHRC"
 }
 
 step_github_auth() {

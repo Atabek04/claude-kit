@@ -57,6 +57,7 @@ run_install_cases() {
     grep -qE 'add|install' "$t/state/calls" 2> /dev/null && touched=1
     assert_eq "install --check: creates and runs nothing" "0" "$touched"
 
+    printf '%s\n' 'export KEEP=1' 'source ~/claude-kit/shell/bulk-edit.zsh' > "$h/.zshrc"
     run_install
     assert_eq "install: first run succeeds" "0" "$INSTALL_STATUS"
     if [ -d "$h/claude-kit/.git" ]; then ok "install: clones the kit"; else bad "install: clones the kit" "no clone at $h/claude-kit"; fi
@@ -66,7 +67,8 @@ run_install_cases() {
     assert_has "install: adds the marketplace" "$(cat "$t/state/calls")" "plugin marketplace add Atabek04/claude-kit"
     assert_has "install: installs the plugin" "$(cat "$t/state/calls")" "plugin install kit@claude-kit"
     assert_eq "install: enables marketplace auto-update" "true" "$(jq -r '.extraKnownMarketplaces["claude-kit"].autoUpdate' "$h/.claude/settings.json")"
-    assert_has "install: sources bulk-edit in .zshrc" "$(cat "$h/.zshrc")" "source ~/claude-kit/shell/bulk-edit.zsh"
+    assert_lacks "install: drops the bulk-edit source line" "$(cat "$h/.zshrc")" "bulk-edit"
+    assert_has "install: keeps the rest of .zshrc" "$(cat "$h/.zshrc")" "export KEEP=1"
 
     before=$(cat "$h/.claude/CLAUDE.md" "$h/.claude/settings.json" "$h/.zshrc" | cksum)
     run_install

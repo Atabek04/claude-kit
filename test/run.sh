@@ -383,12 +383,19 @@ run_inplace_cases() {
     inplace_case allow "printf x > existing.txt" "/"
     inplace_case deny "echo x > $PROJ/existing.txt" "/"
     inplace_case deny "sed -i 's/a/b/' existing.txt" "$PROJ"
-    inplace_case deny "bulk-edit 30" "$PROJ"
-    inplace_case deny "cd x && bulk-edit 30" "$PROJ"
-    inplace_case deny "zsh -ic 'bulk-edit 30'" "$PROJ"
-    inplace_case deny "touch ~/.claude/bulk-edit.allow" "$PROJ"
-    inplace_case allow "git commit -m 'feat: the bulk-edit gate'" "$PROJ"
-    inplace_case allow "grep -n bulk-edit README.md" "$PROJ"
+    inplace_case deny "python3 -c \"open('existing.txt','w').write('x')\"" "$PROJ"
+    local clean="$WORK/clean"
+    new_repo "$clean"
+    printf 'a\n' > "$clean/f.txt"
+    git -C "$clean" add f.txt && git -C "$clean" commit -qm init
+    inplace_case allow "sed -i 's/a/b/' f.txt" "$clean"
+    inplace_case allow "cd $clean && perl -pi -e 's/a/b/' $clean/f.txt" "/"
+    inplace_case allow "python3 -c \"open('f.txt','w').write('x')\"" "$clean"
+    inplace_case allow "printf x > f.txt" "$clean"
+    inplace_case deny "sed -i 's/a/b/' ~/.zshrc" "$clean"
+    inplace_case deny "sed -i 's/a/b/' f.txt \$HOME/.zshrc" "$clean"
+    inplace_case deny "sed -i 's/a/b/' /etc/hosts" "$clean"
+    inplace_case deny "sed -i 's/a/b/' f.txt" "/"
 }
 
 # shellcheck source=test/sync-kit.sh

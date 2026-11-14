@@ -107,11 +107,11 @@ The full suite runs once per change, at the gate that guards the push; an inner 
 
 ## Files and shell
 
-Read/Edit/Write for every file change: `Edit` fails loudly on a mismatch, `sed -i` and scripted writes fail silently.
-The `kit` hook `block-inplace-edits.sh` enforces this, because the auto-mode reminder says the opposite and prose
-loses. A deliberate bulk refactor needs the user to run `bulk-edit N` in their own terminal; never touch the gate
-file. Inside the window: show the change map, make the script print the changed-file count, then grep that the old
-string is gone. Never claim an edit succeeded without evidence.
+Read/Edit/Write for a file change: `Edit` fails loudly on a mismatch, `sed -i` and scripted writes fail silently.
+A bulk change (a rename across files, Arabic marks `Edit` would normalise) may be scripted only in a clean git tree,
+so `git diff` shows it and `git checkout .` undoes it: commit first, make the script print the changed-file count,
+then grep that the old string is gone. The `kit` hook `block-inplace-edits.sh` enforces the clean tree, because the
+auto-mode reminder pushes scripted edits and prose loses. Never claim an edit succeeded without evidence.
 
 Before polling, prove the probe can succeed once (right endpoint, right auth); a probe that cannot pass wastes the wait.
 

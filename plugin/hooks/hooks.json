@@ -1,5 +1,5 @@
 {
-  "description": "Comment-hygiene gate on file writes, bulk-edit gate on shell commands, kit clone sync at session start",
+  "description": "Comment-hygiene gate on file writes, clean-tree gate on scripted edits, kit clone sync at session start",
   "hooks": {
     "SessionStart": [
       {

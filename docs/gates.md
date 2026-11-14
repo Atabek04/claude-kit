@@ -8,10 +8,13 @@ Sessions run in auto mode, and auto mode injects a system reminder that tells th
 and short scripts. The global `CLAUDE.md` says the opposite and claims precedence, but two conflicting prose instructions
 resolve unpredictably, and the injected one has won repeatedly. A hook does not negotiate.
 
-A bug and a deliberate bulk refactor look identical on the command line, so `block-inplace-edits.sh` gates on who opened
-the window: the user runs `bulk-edit N` in their own terminal, which writes an expiry epoch to `~/.claude/bulk-edit.allow`.
-While it is in the future, scripted edits pass. Any Bash command that names the gate file is denied, so the agent cannot
-open it for itself. Scratch paths stay writable.
+A bug and a deliberate bulk refactor look identical on the command line, so `block-inplace-edits.sh` gates on what can
+be recovered, not on intent: a scripted edit (`sed -i`, `perl -i`, an interpreter writing a file, a redirect over an
+existing file) passes only when the command's directory is in a git work tree with nothing uncommitted and every
+absolute or home path it names sits inside that tree. Then `git diff` shows the change and `git checkout .` undoes it.
+The losses this prevents (a file emptied by BSD `sed -i`, a `~/.zshrc` wiped) were all uncommitted work or files
+outside a repository. Scratch paths stay writable. Deliberately not a window the user opens by hand: it stalls every
+unattended or cloud run that needs a rename, since nobody is at the terminal.
 
 The comment rules have the same problem. They are in the global rules, and a model under pressure to finish writes
 `// Step 1:` anyway. The gate makes the cheap path the correct one.
