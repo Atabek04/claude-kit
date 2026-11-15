@@ -34,13 +34,17 @@ uses real content from it, never lorem ipsum or invented metrics.
 
 ## Plan, check, build
 
-1. **Plan:** 4 to 6 named colours with hex values; one or two typefaces with roles and a type scale; a layout in one
+1. **References:** 3 to 6 real product screens doing the same job, at the target viewport. They set the bar for
+   layout, density and hierarchy; the project's tokens still own colour and type.
+2. **Plan:** 4 to 6 named colours with hex values; one or two typefaces with roles and a type scale; a layout in one
    sentence plus an ASCII wireframe, with alignment; two or three principles for what makes this screen its own.
-2. **Check against the brief:** for each part, would a similar brief have produced the same thing? If yes, revise it
+3. **Check against the brief:** for each part, would a similar brief have produced the same thing? If yes, revise it
    and say what changed. Brief the tone with references, never "modern" or "clean"; state what must not appear.
-3. **Build:** read the real component and token files rather than paraphrasing them; keep spacing and radii at the
+4. **Build:** read the real component and token files rather than paraphrasing them; keep spacing and radii at the
    values the system defines. Watch selector specificity where section and element classes meet.
-4. **Critique:** screenshot when the environment allows, and remove the one thing that does not serve the brief.
+5. **Critique:** screenshot at the references' viewport. A fresh-context subagent gets only the reference and build
+   images side by side plus the ban list, never the code or your opinion, and names the three biggest gaps; fix them.
+   The builder's own verdict never closes this step: with no screenshot or subagent, report the critique as not run.
 
 ## Principles
 
