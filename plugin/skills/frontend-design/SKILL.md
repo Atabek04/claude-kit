@@ -45,6 +45,8 @@ uses real content from it, never lorem ipsum or invented metrics.
 5. **Critique:** screenshot at the references' viewport. A fresh-context subagent gets only the reference and build
    images side by side plus the ban list, never the code or your opinion, and names the three biggest gaps; fix them.
    The builder's own verdict never closes this step: with no screenshot or subagent, report the critique as not run.
+   The owner's verdict outranks both: when they judge the work worse than you or the critic did, that gap is your
+   bias, so recheck everything already called done at their bar, not only the part they named.
 
 ## Principles
 
