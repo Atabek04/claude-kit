@@ -11,8 +11,10 @@ decide. Your context has to last the whole spec, so open a source file only for 
 
 - **The briefing.** Each subagent starts with nothing but your prompt: the capability, the rules and traps that bite
   in this batch (quoted), what earlier batches decided, where the risk is and what done means.
-- **Judgement on findings.** Every gate failure and reviewer finding gets fixed, except a finding that contradicts
-  `spec.md`: it is dropped, and the drop and its reason go in the Session Log row.
+- **Judgement on findings: triage before any fix.** A gate failure is always fixed. A finding that contradicts
+  `spec.md` is dropped. Every other finding is **fix now** when it breaks a criterion, blocks a later batch's
+  `Depends:` or `Files:`, or loses money, data or security; otherwise it goes to the backlog with its reason and opens
+  no round, whatever its label. Each decision goes in the Session Log row.
 - **Who fixes it.** A fix subagent costs about a batch. Fix it yourself when every finding of the round is mechanical
   and located: it names the file and the change, touches at most two files and about twenty lines, and needs no
   investigation. Otherwise one fix subagent takes the whole round, small findings included.
@@ -45,27 +47,32 @@ For each batch with an unchecked criterion, in order. `BASE` is `HEAD` when the 
 5. **Gate and review, in parallel.** Only you run the gate (project.md "Loop"), in the background, while one
    subagent runs `kit:review <BASE>` with this spec, plus any extra reviewer project.md "Loop" names. A review with a
    P0 or P1 is `FAIL <n>`, one with neither is `PASS`, one that could not run is `BLOCKED <reason>`.
-6. **Next batch** once every gate job and every verdict is `PASS`, after releasing the lock.
+6. **Next batch** once every gate job passes and no fix-now finding is open, after releasing the lock.
 
 **Outcomes.**
 
 - **`RESULT: STOP`** from the implementer: end the loop and give the owner the reason verbatim. Only the owner
   resolves a spec/code contradiction; once the spec is amended and resealed, `--loop` resumes.
 - **A failure** (stage 3 mismatch, `TESTS: FAIL`, a failing gate job, a reviewer `FAIL`): judge a failing independent
-  test against `spec.md` like any finding. Wait for every stage-5 result, then fix the round by "Who fixes it". The
-  fix commits on top, keeps older tests locked, is never red, and runs the check that failed before committing. Then
-  stage 5 again: the gate always, the reviewers only when the fix changed production logic or a test.
+  test against `spec.md` like any finding. Wait for every stage-5 result, triage, then fix the fix-now findings by
+  "Who fixes it". The fix commits on top, keeps older tests locked, is never red, and runs the check that failed
+  before committing. Then stage 5 again: the gate always; a reviewer only when the fix changed production logic or a
+  test, briefed with the fixed findings and the fix commits alone, so it confirms each fix instead of reviewing a new
+  diff. A new finding it reports goes through triage like any other.
 - **After every round with a finding,** update the checklist project.md "Loop" names: for each finding no line
   already covers, add or sharpen at most one line, the check the implementer should have run, in the words of a rule
   that applies beyond this batch. Never more than one line per round. The list stays under its cap: a line hit in two
   batches becomes a gate or a project rule and leaves the list; a line no finding needed for ten batches goes.
 - **`RESULT: FAILED`:** save the patch to the scratch directory, `git reset --hard <BASE>`, and brief a fresh attempt
   with the error and the patch path.
-- **A second failing round in one batch, or the same gate failing with the same cause in two batches:** stop and
-  report both. Rounds you fixed yourself count.
+- **Attempts count per finding, not per round.** A finding still failing after its second fix gets a third on the
+  strongest model, briefed to question the design rather than patch the symptom: repeated failure on one finding
+  means a wrong design, not a wrong guess. Still failing, or the same gate failing with the same cause in two
+  batches: park the batch (Session Log `blocked`, the finding and every attempt), push what is green, and continue
+  with the next batch its `Depends:` allows. Stop only when no runnable batch is left.
 - **A reviewer `BLOCKED`:** record it in the Session Log row and continue; the owner checks that batch by hand.
 
-At most five subagent spawns per remaining batch.
+At most eight subagent spawns per remaining batch.
 
 **Parallel batches.** A batch whose `Depends:` batches are all done and whose `Files:` share nothing with a batch in
 flight may run its stages in its own worktree, cut from the spec branch HEAD (kit `CLAUDE.md` § Subagents). Its
@@ -130,8 +137,9 @@ Reply in at most ten lines, ending with exactly one line: TESTS: PASS <head sha>
 The findings verbatim, each with what the reports say of its cause, then:
 
 ```text
-Fix exactly these findings, nothing else, in new commits on top. Tests from before BASE stay locked. A finding you
-believe is wrong: do not fix it, explain why in one line. Do not run the full gate; the orchestrator runs it after
+Fix exactly these findings, nothing else, in new commits on top, each by kit:debug: first a test that goes red on
+exactly that finding, then its cause, then one change that turns it green. Tests from before BASE stay locked. A
+finding you believe is wrong: do not fix it, explain why in one line. Do not run the full gate; the orchestrator runs it after
 you. Run the Verify line, lint and type checks in the foreground before committing.
 Reply in at most ten lines, ending with RESULT: DONE <head sha> or RESULT: FAILED <gate>: <first error line>.
 ```
