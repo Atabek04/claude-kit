@@ -61,15 +61,21 @@ changed-file count and grep that the old string is gone."
 # A clean tree makes a scripted edit reviewable (`git diff`) and reversible (`git checkout .`); a dirty one can lose
 # uncommitted work. Every absolute or home path the command names must sit inside that tree.
 deny_unless_clean_tree() {
-    local top outside
+    local top candidate first
     top=$(git -C "$WORK_DIR" rev-parse --show-toplevel 2> /dev/null)
     [ -z "$top" ] && deny "$1 Scripted edits run only inside a git work tree. $USE_EDIT"
     [ -n "$(git -C "$top" status --porcelain 2> /dev/null)" ] &&
         deny "$1 The work tree $top has uncommitted changes. $USE_EDIT"
-    outside=$(printf '%s' "$COMMAND" | grep -oE "(^|[[:space:]\"'=])(/|~|\\\$HOME)[^[:space:]\"';|&)]*" |
-        sed -E "s/^[[:space:]\"'=]//; s|^~|$HOME|; s|^\\\$HOME|$HOME|" |
-        grep -vE "^($top(/|$)|/dev/)" | head -1)
-    [ -n "$outside" ] && deny "$1 It names '$outside', outside the work tree $top. $USE_EDIT"
+    # A sed or regex literal such as /^B16 x/ is not a path: only a token whose first directory exists counts.
+    while IFS= read -r candidate; do
+        [ -z "$candidate" ] && continue
+        first=${candidate#/}
+        first=/${first%%/*}
+        [ -e "$first" ] || continue
+        printf '%s' "$candidate" | grep -qE "^($top(/|$)|/dev/)" && continue
+        deny "$1 It names '$candidate', outside the work tree $top. $USE_EDIT"
+    done < <(printf '%s' "$COMMAND" | grep -oE "(^|[[:space:]\"'=])(/|~|\\\$HOME)[^[:space:]\"';|&)]*" |
+        sed -E "s/^[[:space:]\"'=]//; s|^~|$HOME|; s|^\\\$HOME|$HOME|")
     exit 0
 }
 

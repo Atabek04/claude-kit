@@ -395,6 +395,8 @@ run_inplace_cases() {
     inplace_case deny "sed -i 's/a/b/' ~/.zshrc" "$clean"
     inplace_case deny "sed -i 's/a/b/' f.txt \$HOME/.zshrc" "$clean"
     inplace_case deny "sed -i 's/a/b/' /etc/hosts" "$clean"
+    inplace_case allow "sed -i '/^B16 runs as/,\$d' f.txt" "$clean"
+    inplace_case deny "sed -i '/^B16 runs as/d' f.txt /etc/hosts" "$clean"
     inplace_case deny "sed -i 's/a/b/' f.txt" "/"
 }
 
