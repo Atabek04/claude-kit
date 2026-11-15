@@ -71,7 +71,7 @@ deny_unless_clean_tree() {
         [ -z "$candidate" ] && continue
         first=${candidate#/}
         first=/${first%%/*}
-        [ -e "$first" ] || continue
+        [ "$first" != "/" ] && [ -e "$first" ] || continue
         printf '%s' "$candidate" | grep -qE "^($top(/|$)|/dev/)" && continue
         deny "$1 It names '$candidate', outside the work tree $top. $USE_EDIT"
     done < <(printf '%s' "$COMMAND" | grep -oE "(^|[[:space:]\"'=])(/|~|\\\$HOME)[^[:space:]\"';|&)]*" |
