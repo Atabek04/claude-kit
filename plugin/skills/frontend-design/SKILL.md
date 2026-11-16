@@ -48,6 +48,17 @@ uses real content from it, never lorem ipsum or invented metrics.
    The owner's verdict outranks both: when they judge the work worse than you or the critic did, that gap is your
    bias, so recheck everything already called done at their bar, not only the part they named.
 
+## Showing the owner a choice
+
+A preview asks for a decision, never hands the design back. Show 2 to 4 **named directions**, each a whole working
+screen built from real content, each with the one line of why it exists, and mark the one you would ship with what
+it beats. Directions differ in what the screen is (what the header carries, which surface owns a fact, how many
+tabs), never in a value.
+- **No knob the designer should have turned:** padding, type size, page width, radius, border style, density. A
+  control earns its place only when it switches a real state the design must survive — a role, an empty list, an
+  inherited value, a long name.
+- The owner may answer across directions ("A's header, B's footnote"); take that as the pick and build it.
+
 ## Principles
 
 - **One bold move.** One memorable element; everything around it quiet.
