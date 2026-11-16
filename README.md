@@ -9,7 +9,7 @@ Rules that a script can check are hooks. Everything else is short prose that loa
 | | Loads | Contents |
 |---|---|---|
 | [`CLAUDE.md`](CLAUDE.md) | every session | principles for all projects |
-| [`rules/`](rules) | when a matching file is touched | `jvm` · `go` · `python` · `typescript` · `testing` · `docs` · `instructions` |
+| [`rules/`](rules) | when a matching file is touched | `jvm` · `go` · `python` · `typescript` · `testing` · `docs` · `instructions` · `hand-typed` |
 | [`plugin/skills/`](plugin/skills) | on `/kit:<name>` or a matching request | below |
 | [`plugin/hooks/`](plugin/hooks/hooks.json) | every tool call | comment and naming gate, scripted-edit gate, startup sync |
 | [`hygiene/`](hygiene/action.yml) | CI | the comment gate on PR diffs or the whole tree |
