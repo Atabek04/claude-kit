@@ -74,3 +74,11 @@ tabs), never in a value.
 Words are interface. Name things the way users think of them, not the way the system is built; buttons say what
 happens ("Save changes") and the result echoes it ("Saved"); errors say what went wrong and how to fix it, without
 apology; an empty state invites the next action. Sentence case, active voice, no filler.
+
+**Nothing the screen already says.** Every string earns its place by carrying what the user cannot see: a reason, a
+consequence, a value, a number. Cut the rest, and let the interface itself carry it.
+- A caption for an absent control ("Read-only", "You cannot change this") tells a user who sees no control what they
+  already know. Show the control to whoever has it and nothing to everyone else.
+- A label that repeats its heading, its icon or the obvious action of its own button is noise; an icon with a tooltip
+  or `aria-label` replaces a repeated text button in a row or column of them.
+- A line that restates what the row, chip or value beneath it already states goes, even when it reads as helpful.
