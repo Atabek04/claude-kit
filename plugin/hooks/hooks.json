@@ -1,5 +1,5 @@
 {
-  "description": "Comment-hygiene gate on file writes, clean-tree gate on scripted edits, kit clone sync at session start",
+  "description": "Comment-hygiene gate on file writes, no code writes in a hand-typed sandbox, clean-tree gate on scripted edits, kit clone sync at session start",
   "hooks": {
     "SessionStart": [
       {
@@ -29,6 +29,10 @@
           {
             "type": "command",
             "command": "\"${CLAUDE_PLUGIN_ROOT}\"/scripts/no-slop.sh"
+          },
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/scripts/hand-typed-gate.sh"
           }
         ]
       }

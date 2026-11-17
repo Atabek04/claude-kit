@@ -19,6 +19,12 @@ unattended or cloud run that needs a rename, since nobody is at the terminal.
 The comment rules have the same problem. They are in the global rules, and a model under pressure to finish writes
 `// Step 1:` anyway. The gate makes the cheap path the correct one.
 
+## The hand-typed sandbox gate
+
+`hand-typed-gate.sh` denies Write, Edit and MultiEdit on a code file (`.java .kt .kts .py .go .ts .tsx .js .sql`)
+under any directory holding a `.hand-typed` file. The owner creates that file in a learning project; deleting it lifts
+the gate. The rule it enforces: `rules/hand-typed.md`.
+
 ## The comment-hygiene gate
 
 `no-slop.sh` enforces the "Code" comment and naming rules from the kit `CLAUDE.md` mechanically.
