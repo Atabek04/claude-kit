@@ -72,7 +72,9 @@ deny_unless_clean_tree() {
         first=${candidate#/}
         first=/${first%%/*}
         [ "$first" != "/" ] && [ -e "$first" ] || continue
-        printf '%s' "$candidate" | grep -qE "^($top(/|$)|/dev/)" && continue
+        printf '%s' "$candidate" | grep -qE '^/dev/' && continue
+        # Resolved like git's toplevel: a symlinked checkout path stays inside, a link out of the tree does not.
+        realpath -m -- "$candidate" | grep -qE "^$top(/|$)" && continue
         deny "$1 It names '$candidate', outside the work tree $top. $USE_EDIT"
     done < <(printf '%s' "$COMMAND" | grep -oE "(^|[[:space:]\"'=])(/|~|\\\$HOME)[^[:space:]\"';|&)]*" |
         sed -E "s/^[[:space:]\"'=]//; s|^~|$HOME|; s|^\\\$HOME|$HOME|")

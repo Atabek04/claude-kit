@@ -387,7 +387,11 @@ run_inplace_cases() {
     local clean="$WORK/clean"
     new_repo "$clean"
     printf 'a\n' > "$clean/f.txt"
-    git -C "$clean" add f.txt && git -C "$clean" commit -qm init
+    ln -s /etc "$clean/escape"
+    ln -s "$clean" "$WORK/clean-link"
+    git -C "$clean" add f.txt escape && git -C "$clean" commit -qm init
+    inplace_case allow "cd $clean && sed -i 's/a/b/' $WORK/clean-link/f.txt" "/"
+    inplace_case deny "sed -i 's/a/b/' f.txt $clean/escape/hosts" "$clean"
     inplace_case allow "sed -i 's/a/b/' f.txt" "$clean"
     inplace_case allow "cd $clean && perl -pi -e 's/a/b/' $clean/f.txt" "/"
     inplace_case allow "python3 -c \"open('f.txt','w').write('x')\"" "$clean"
