@@ -403,6 +403,16 @@ run_inplace_cases() {
     inplace_case allow "sed -i 's/^/unlock=/' f.txt" "$clean"
     inplace_case deny "sed -i '/^B16 runs as/d' f.txt /etc/hosts" "$clean"
     inplace_case deny "sed -i 's/a/b/' f.txt" "/"
+    local scratch="$WORK/scratchpad/demo"
+    mkdir -p "$scratch"
+    : > "$scratch/existing.txt"
+    inplace_case allow "S=$scratch; cd \"\$S\" && echo x > existing.txt && echo y > ../log.txt" "$PROJ"
+    inplace_case allow "cd $scratch && python3 - <<'EOF'
+from pathlib import Path
+Path('fig.py').write_text('a -> b')
+EOF" "$PROJ"
+    inplace_case deny "cd $scratch && sed -i 's/a/b/' $PROJ/existing.txt" "/"
+    inplace_case deny "S=$scratch; cd \"\$S\" && echo x > ../../proj/existing.txt" "$PROJ"
 }
 
 # shellcheck source=test/sync-kit.sh
