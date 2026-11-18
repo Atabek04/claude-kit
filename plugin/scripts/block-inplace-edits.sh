@@ -28,6 +28,14 @@ resolve_path() {
     printf '%s%s' "$(cd -P "$dir" && pwd -P)" "$rest"
 }
 
+# Physical toplevel of the git work tree holding a path, empty outside any: a symlink out of the tree leaves it.
+work_tree_of() {
+    local dir
+    dir=$(resolve_path "$1")
+    while [ ! -d "$dir" ]; do dir=$(dirname "$dir"); done
+    git -C "$dir" rev-parse --show-toplevel 2> /dev/null
+}
+
 # $NAME or ${NAME} assigned earlier in the same command (`S=/path; cd "$S"`); unknown names stay as written.
 expand_assigned_vars() {
     local text=$1 name value
@@ -119,7 +127,7 @@ USE_EDIT="Use the Read/Edit/Write tools, or commit first and rerun the script in
 changed-file count and grep that the old string is gone."
 
 # A clean tree makes a scripted edit reviewable (`git diff`) and reversible (`git checkout .`); a dirty one can lose
-# uncommitted work. Every absolute or home path the command names must sit inside that tree.
+# uncommitted work. Every absolute or home path the command names, and the optional resolved target, must sit in it.
 deny_unless_clean_tree() {
     local top candidate
     top=$(git -C "$WORK_DIR" rev-parse --show-toplevel 2> /dev/null)
@@ -128,10 +136,10 @@ deny_unless_clean_tree() {
         deny "$1 The work tree $top has uncommitted changes. $USE_EDIT"
     while IFS= read -r candidate; do
         [ -z "$candidate" ] && continue
-        # Resolved like git's toplevel: a symlinked checkout path stays inside, a link out of the tree does not.
-        resolve_path "$candidate" | grep -qE "^$top(/|$)" && continue
+        # Its own toplevel, not a prefix match: a nested repo under a clean tree has its own, possibly dirty, status.
+        [ "$(work_tree_of "$candidate")" = "$top" ] && continue
         deny "$1 It names '$candidate', outside the work tree $top. $USE_EDIT"
-    done < <(named_paths)
+    done < <(named_paths; [ -n "$2" ] && printf '%s\n' "$2")
     exit 0
 }
 
@@ -155,7 +163,7 @@ esac
 if [ -n "$TARGET" ] && [ -f "$TARGET" ] \
     && ! printf '%s' "$TARGET" | grep -qE '^(/tmp/|/var/folders/)' \
     && printf '%s' "$COMMAND" | grep -qE '(^|[|;&[:space:]])(cat|tee|printf|echo)([[:space:]]|$)'; then
-    deny_unless_clean_tree "Redirect overwrites the existing file '$TARGET' with no read first."
+    deny_unless_clean_tree "Redirect overwrites the existing file '$TARGET' with no read first." "$TARGET"
 fi
 
 exit 0
