@@ -28,7 +28,9 @@ the branch compiling with the gate green.
    table, an unknown before standard features, polish last. A spec that is going to fail should fail in B1.
 2. **No horizontal batches.** A batch carries every layer its capability needs, with its tests. Infra alone (an API
    client, a nav link) folds into the first batch that uses it.
-3. **At most six tasks per batch, one capability.** No floor.
+3. **At most six tasks per batch, one capability, about 25 main files.** No floor. Count the files `Files:` reaches by
+   grep when writing it; a capability over the cap is split into batches here, because a split at run time costs a
+   planner, a re-cut `Unlock:` and a session that outgrows its agent.
 4. **`Files:`, `Depends:` and `Verify:` are mandatory.** `Verify:` is commands a fresh session runs unattended, in
    the forms project.md "Tasks" names. A criterion only a browser or a device can prove names its command or agent in
    `Verify:`, or is tagged `[manual]`.
@@ -41,6 +43,8 @@ the branch compiling with the gate green.
 7. **A criterion must hold with only this batch and earlier ones delivered.** Write the intermediate state and say in
    one clause what the later batch adds.
 8. **UI batches build `## Chosen design`** per project.md "UI design".
+9. **An answered open question is quoted in every batch it binds.** The implementer reads its batch, not the spec's
+   question list, so an answer left there is missed.
 
 ## Tasks
 

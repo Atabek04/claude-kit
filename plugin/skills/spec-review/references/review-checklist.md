@@ -32,7 +32,8 @@ Run the section for the file type, then project.md "Review checks".
 ## tasks.md
 
 - [ ] Every batch has a one-sentence capability, `Files:`, `Depends:` and a `Verify:` that runs unattended.
-- [ ] No horizontal batch, no tests-only batch, no infra-only batch; at most six tasks each.
+- [ ] No horizontal batch, no tests-only batch, no infra-only batch; at most six tasks and about 25 main files each
+  (🔴 over the cap: it splits at run time); every answered open question is quoted in the batch it binds.
 - [ ] Every spec.md criterion lands in exactly one task; no task criterion lacks a story.
 - [ ] No criterion depends on a later batch's deliverable (🔴: it forces work forward or fakes a boundary).
 - [ ] Order is a DAG; `[P]` tasks share no file.
