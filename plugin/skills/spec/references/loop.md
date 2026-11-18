@@ -30,7 +30,8 @@ Stop and name the missing step if any fails:
 
 ## Stages, per batch
 
-For each batch with an unchecked criterion, in order. `BASE` is `HEAD` when the batch starts.
+For each batch with an unchecked criterion, in order. `BASE` is `HEAD` when the batch starts, and stays
+that commit when the batch runs as several sessions: a test an earlier session of the same batch wrote is never locked.
 
 1. **Lock** the tests older than `BASE`, except the `Unlock:` paths, by project.md "Loop". First, one `haiku` search
    subagent lists every locked test that names a symbol, route, column, message or fixture state the batch changes,
@@ -43,11 +44,13 @@ For each batch with an unchecked criterion, in order. `BASE` is `HEAD` when the 
    included, is named on its `Verify:` line, by project.md "Loop"'s check when it has one.
 4. **Independent tests.** A second subagent with the test briefing. It never saw the implementer's session, so its
    oracle can only come from the spec. After `PASS` verify as in stage 3; after `FAIL` the failing tests are the only
-   uncommitted change.
+   uncommitted change. Skip it for a batch with no new behaviour (renames, moves, docs) and say why in the row.
 5. **Gate and review, in parallel.** Only you run the gate (project.md "Loop"), in the background, while one
    subagent runs `kit:review <BASE>` with this spec, plus any extra reviewer project.md "Loop" names. A review with a
    P0 or P1 is `FAIL <n>`, one with neither is `PASS`, one that could not run is `BLOCKED <reason>`.
-6. **Next batch** once every gate job passes and no fix-now finding is open, after releasing the lock.
+6. **Next batch** once every gate job passes and no fix-now finding is open, after releasing the lock. Run the full test
+   suite once first after a batch that changed shared configuration or test infrastructure, and at least every fourth
+   batch: the batch gate runs only the tests a diff reaches, so an order-dependent leak surfaces nowhere else.
 
 **Outcomes.**
 
@@ -94,7 +97,8 @@ Under 40 lines, in this order:
 
 ```text
 - Tests first by kit:tdd, one criterion at a time, each seen failing before its code. Commit them with the code
-  that makes them pass; no commit is ever red.
+  that makes them pass, as each criterion turns green, so a session cut off mid-run leaves its work committed; no
+  commit is ever red.
 - Solve the criterion for every valid input, not the tests' inputs: no branch, constant or lookup that exists to make
   a test pass. A second agent will test the batch with inputs you have not seen.
 - Tests that existed before BASE are locked. One that fails means the code is wrong or the spec contradicts it.
