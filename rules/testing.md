@@ -19,7 +19,8 @@ else's test; never write them, and name them when you find them. A project's own
 - **Structural:** the test asserts how the code is written (reads source text, pins private calls), so it breaks on a
   refactor and misses real bugs. Run the code and assert what it does.
 - **Mock-the-world:** the unit under test or a type the project owns is mocked, or a boundary fake never fails. Fake
-  only paid or slow boundaries, with their real wire format and failure modes.
+  only paid or slow boundaries, with their real wire format and failure modes; an outage or timeout fake is probed
+  inside the test before its green counts.
 - **Special-cased:** production code recognises a test's input. Solve for every valid input; a test that looks wrong
   is reported, never satisfied.
 - **Leaky:** on a shared database, cache or app context, the test leaves rows or keys behind, or inserts a state no
