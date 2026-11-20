@@ -49,7 +49,9 @@ Project musts for "One batch" step 7: skills to load, stack rules, generated fil
 
 ## Gate
 
-The commands that make a batch green. `kit:review` runs after them; name any extra reviewer here.
+The commands that make a batch green. `kit:review` runs after them; name any extra reviewer here. When shared CI
+runners already run the suite, the gate is the local `Verify:` tests, then the pipeline on the pushed SHA: name the
+trigger that starts it (push, MR) and drop the local full build.
 
 ## Loop
 

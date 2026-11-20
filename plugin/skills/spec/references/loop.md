@@ -48,6 +48,8 @@ that commit when the batch runs as several sessions: a test an earlier session o
 5. **Gate and review, in parallel.** Only you run the gate (project.md "Loop"), in the background, while one
    subagent runs `kit:review <BASE>` with this spec, plus any extra reviewer project.md "Loop" names. A review with a
    P0 or P1 is `FAIL <n>`, one with neither is `PASS`, one that could not run is `BLOCKED <reason>`.
+   A remote gate (project.md "Gate" names CI): push the spec branch, keep its MR or PR open so the pipeline runs,
+   and wait on the pipeline of that exact SHA; every job line counts, as for a local gate.
 6. **Next batch** once every gate job passes and no fix-now finding is open, after releasing the lock. Run the full test
    suite once first after a batch that changed shared configuration or test infrastructure, and at least every fourth
    batch: the batch gate runs only the tests a diff reaches, so an order-dependent leak surfaces nowhere else.

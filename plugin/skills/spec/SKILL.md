@@ -59,7 +59,7 @@ The same procedure runs by hand and inside each `--loop` implementer.
 9. **Record.** Tick the batch's criteria (never one that no code and test back), append the Session Log row
    `| <date> | B<N> | <sha> | done, gates green | <decisions and blockers> | <next> |`, and add a failure-log row for
    each thing that actually broke. Commit per project.md "Commits", each commit compiling on its own.
-10. **Do not push** unless asked. A batch that leaves unchecked criteria ends here: name the next batch and recommend
+10. **Do not push** unless asked or project.md "Gate" is remote CI, which needs the push. A batch that leaves unchecked criteria ends here: name the next batch and recommend
     `/clear`. The batch that ticks the last criterion lands the spec.
 
 ## Landing
