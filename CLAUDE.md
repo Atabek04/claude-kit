@@ -154,6 +154,8 @@ Never AI attribution. `commit-msg.sh` enforces all of it; a second point is a se
   `*.md` or `docs/` skips the build, its gate is the comment hook. Push to the feature
   branch or the project's integration branch without asking, a worktree agent to its own branch; never push to a
   release or prod branch.
+- Run `git rebase --skip` or `cherry-pick --skip` alone, only after `git diff --cached --quiet` passes: chained
+  after a failed `--continue` it drops a commit whose conflict still holds changes.
 - A merge request is a release event, not a work-done event: suggest one only when a change is ready for another
   person to check on a shared stage, naming who checks what. Docs, TODO and tooling commits never trigger one.
 A commit the device owner must act on or customise carries an `Action: <what to do>` line in its body.
