@@ -13,3 +13,5 @@ paths:
 - Acronyms: two letters stay upper (`IOStream`), three or more capitalise only the first (`HttpClient`).
 - Absent values are Kotlin nullable `T?`, never `Optional<T>`.
 - Booleans read as assertions (`isDue`, `hasRoot`), never negated; collections are plural nouns.
+- A JVM-wide singleton (`object`, static field) that loads resources names its own class's loader, never the thread
+  context loader: that is a per-context web loader, dead once its context closes (test context cache, devtools).
