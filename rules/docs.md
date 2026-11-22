@@ -12,3 +12,5 @@ paths:
   as that code.
 - A stack claim ("we use X") is true only if real code imports X.
 - Specs and reviews are history once landed: never update them to match renamed code.
+- A backlog bug item states the observed symptom and the commit it was seen at (`seen at <sha>`): a later commit can
+  fix it silently, and work briefed from the item then chases a bug that is gone.
