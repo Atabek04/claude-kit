@@ -49,7 +49,8 @@ New project: `bin/kit-init <path>` scaffolds the git hooks, the hygiene workflow
    fact.
 3. A gate change gets an allow and a deny case. Run `bash test/run.sh` and `scripts/check-publishable.sh`.
 4. Commit (Conventional Commits) and push. Every push is a new plugin version, picked up at the next launch; projects
-   pinning the CI action bump its SHA.
+   pinning the CI action bump its SHA. A cloud session whose sources lack the kit may attach it with push access
+   (`add_repo`) for a kit change the owner accepted: the owner authorizes that once, here; push from `~/claude-kit`.
 5. Everything must be safe to publish: no secrets, no employer or client names, no home paths.
 6. A change that needs a per-device step (re-run `install.sh`, a local setting, a hook to review) gets an
    `Action: <what to do>` line in the commit body.
