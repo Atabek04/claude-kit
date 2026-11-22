@@ -17,6 +17,8 @@ why, separate parts with XML tags, state the output (docs.claude.com, "Prompt en
 - **Facts, not memory.** Every fact was checked in this session (command, file, ticket) and carries its source:
   path, `file:line`, branch, commit, ticket link, who decided and when. What was not checked is labelled
   `assumption:`. Absolute dates, never "today" or "yesterday".
+- **A cause cites the line that decides it** (the query, the predicate), never a caller or a method name: a name
+  can lie. A cause not reproduced is labelled `hypothesis:`.
 - **Point, never paste:** specs, docs, rules and CLAUDE.md files go by path. The new session loads its own
   CLAUDE.md files, so never restate their rules; carry only what is specific to this task.
 - **Say what to do and why:** positive instructions, one reason for each constraint that is not obvious. No emphasis
