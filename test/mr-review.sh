@@ -97,7 +97,9 @@ mr_fixture() {
 mr_run() {
     local d="$WORK/mr"
     : > "$d/log"
-    (cd "$d/repo" && PATH="$d/bin:$PATH" STUB_LOG="$d/log" GITLAB_TOKEN="${TOKEN-secret}" bash "$MR_SCRIPT" "$@" 2>&1)
+    # GitHub Actions sets GITHUB_REPOSITORY, which outranks the origin remote these cases stub.
+    (cd "$d/repo" && env -u GITHUB_REPOSITORY -u GITLAB_PROJECT -u GITLAB_URL PATH="$d/bin:$PATH" \
+        STUB_LOG="$d/log" GITLAB_TOKEN="${TOKEN-secret}" bash "$MR_SCRIPT" "$@" 2>&1)
 }
 
 run_mr_review_cases() {
