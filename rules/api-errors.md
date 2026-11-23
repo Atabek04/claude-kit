@@ -32,6 +32,8 @@ paths:
 - **A business rule gets its own code** (`APPLICANT_UNDERAGE`, `CERTIFICATE_EXPIRED`), 422, thrown as a dedicated
   exception; never folded into `VALIDATION_ERROR`. Format errors on request fields share `VALIDATION_ERROR` and name the
   fields in `details`. A domain "not found" is `<ENTITY>_NOT_FOUND`, so it never collides with an unknown route.
+- **A code names the condition the caller must fix, never a state nearby** (`DIFFERS_FROM_BOOKING`, not
+  `ACTIVE_BOOKING_EXISTS` for "pick the booking's center"). Reuse an existing code only when its condition matches.
 - **Same next step for the user means one code; a different next step means a different code.** Several causes at
   once: check in a fixed, documented order and return the first. Never split where it leaks: a code-guessing endpoint
   answers the same for a wrong, expired and foreign code.

@@ -106,7 +106,8 @@ fixed the same day with an allow and a deny case, and logged where that gate kee
 Chain a gate and the step it guards with `&&`, never `;`: a red gate must stop the commit or push. Never pipe a gate
 into `tail`/`grep` in that chain: the pipe returns the filter's status and a red gate passes. Redirect to a file.
 The full suite runs once per change, at the gate that guards the push; an inner loop runs what the change touches.
-Changing a rule touches every test that pins its old behaviour: grep the tests and specs for it and run them first.
+Changing a rule touches every test that pins its old behaviour: grep the tests and specs for it (unit and
+integration alike, by the old value) and run them first; a hand-picked set of classes is not that grep.
 
 ## Files and shell
 
