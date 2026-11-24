@@ -92,6 +92,10 @@ comment.
 - Naming: no `data`/`result`/`item`/`temp` as a whole name, no `*Manager`/`*Helper`/`*Util`/`*Wrapper`/
   `*Container`/`*Processor`, no `utils`/`helpers` files, no `handle()`/`process()`, no `XServiceImpl` for a single
   impl, no boolean parameters, no `getX()` that does I/O or mutates (`fetchX`, `loadX`). Same concept, same word.
+- A new field, column or API property is named before its first push to a shared branch (later = migration + contract
+  change): pick the concepts its readers rely on, one word each, in the code's existing vocabulary; never the mechanism
+  that writes it (`covered`, `cursor`, `flag`). A name that needs a comment to say what it means gets renamed.
+- Name molds: one pattern per kind (moment, boolean, bound), listed in the project's `CLAUDE.md`; reuse, never invent.
 - One way per job: grep for the existing utility, client, error shape or UI primitive first; extend it, never fork
   it. A class or file used from one place that adds no abstraction gets inlined.
 - A lifecycle (status, phase, step) is one enum or sealed type, changed only through one method that rejects an
