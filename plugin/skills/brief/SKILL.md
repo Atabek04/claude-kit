@@ -25,6 +25,8 @@ why, separate parts with XML tags, state the output (docs.claude.com, "Prompt en
   words; the order and the stop point carry the priority.
 - **Every line prevents a re-derivation or a mistake.** No recap of the conversation, no history of dead ends unless
   it stops a repeat (one line: what failed and why).
+- **A design to lift is a direction, not a pixel spec:** the brief asks the receiver to report every defect it sees in
+  it (job, copy, contrast, raw codes) rather than copy it faithfully.
 - **No real citizen data:** no IINs, names, phones, booking or application ids from prod; test values only.
 
 ## Shape

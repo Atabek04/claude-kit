@@ -20,6 +20,9 @@ names a look gets that look, even one listed as a default.
 Name the product, its audience and the screen's one job before designing; if the brief does not, propose them and
 confirm. Distinctive choices come from the subject's own world (its materials, vocabulary, artefacts), and the build
 uses real content from it, never lorem ipsum or invented metrics.
+- **Jobs before data.** List the 2 or 3 things the user opens the screen to do; every element serves one. A job the
+  data cannot serve yet is raised as a gap, never dropped in silence. No raw code, enum, slug or id reaches the
+  screen: a part-of-speech tag or a source key gets the words a user would use.
 
 ## Defaults to avoid where the brief leaves a choice open
 
@@ -45,6 +48,8 @@ uses real content from it, never lorem ipsum or invented metrics.
 5. **Critique:** screenshot at the references' viewport. A fresh-context subagent gets only the reference and build
    images side by side plus the ban list, never the code or your opinion, and names the three biggest gaps; fix them.
    The builder's own verdict never closes this step: with no screenshot or subagent, report the critique as not run.
+   Unreachable reference sites are no exemption: use the project's shipped screens, or name the apps and describe
+   their screens in the critic's brief. A build that skipped the critic is not shown as a pick, nor built on.
    The owner's verdict outranks both: when they judge the work worse than you or the critic did, that gap is your
    bias, so recheck everything already called done at their bar, not only the part they named.
 
@@ -62,6 +67,9 @@ tabs), never in a value.
 ## Principles
 
 - **One bold move.** One memorable element; everything around it quiet.
+- **Surfaces share one temperature.** Page, card and sheet are steps on one hue's lightness ladder (OKLCH: hue within
+  10°, chroma within 0.02, lightness 3 to 6 points apart); never a pure `#fff` card on a tinted page, never a neutral
+  grey beside a warm tint. Compute each surface pair's hue and lightness; the eye forgives what the screen does not.
 - **Typography carries the voice.** At most two families, clearly distinct; body lines under about 80 characters,
   serif body a little looser in line-height.
 - **Structure is information.** Borders, numbering, dividers and labels encode something about the content or go.

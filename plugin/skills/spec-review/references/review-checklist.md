@@ -11,7 +11,8 @@ Run the section for the file type, then project.md "Review checks".
 
 **Decisions**
 - [ ] **Why** names who fails today, with evidence, and a measurable **Done when**.
-- [ ] Every **Out** item has a reason.
+- [ ] Every **Out** item has a reason, judged by user value; "the data is not there" is a cost, never the reason. A
+  capability the user's job needs and the spec neither builds nor lists under **Out** is 🔴.
 - [ ] Every new entity, column, endpoint or architecture choice has a Decisions row with 2 to 4 options and a pick,
   and the pick survives project.md's chairs or its row says which chair it loses and why.
 - [ ] Thresholds, caps, retries and timeouts are numbers in a rule, not open questions.
