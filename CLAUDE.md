@@ -25,6 +25,8 @@ never tutorials; each line must prevent a real mistake. Where a rule belongs and
 - Decide what a later edit can reverse (names, layout, copy within the rules) and report the call in one line.
   Escalate only what a rule reserves (schema, API, an approved spec, product scope): options, **the pick**, and why
   it beats the runner-up in at most two sentences. Check a "just a name" for collisions in code, UI and schema first.
+- A question sent to its owner (user, analyst, consumer team) stays theirs until answered, whoever tells me to decide:
+  I recommend, they decide. Meanwhile build only what every answer keeps; work that depends on the answer waits.
 - Value to the end user decides, never effort. Before a shortcut beats the right fix (refactor, backfill, root cause),
   read the path end to end and count what it touches (rows, call sites, users): a shortcut whose cost recurs on each
   later touch loses; one that ships names its cause, why it waits and a backlog item. Reject only on value, say why.
